@@ -44,10 +44,15 @@ const eventsApi = apiSlice.injectEndpoints({
         url: "events/list/",
         params: {
           category__slug: filters?.category,
-          tags__id: filters?.tag,
+          tags__id: filters?.tags,
         },
       }),
-      providesTags: ["Events"],
+      providesTags: (result, error, filters) => [
+        { type: "Events", category: filters?.category },
+        ...(filters?.tags?.map((tag) => ({ type: "Events", tagId: tag })) || [
+          "Events",
+        ]),
+      ],
     }),
     getOrganizersEvents: builder.query({
       query: (id) => ({

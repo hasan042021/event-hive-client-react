@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { Link } from "react-router-dom";
 import Message from "../../components/common/Alert";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -30,7 +31,7 @@ export default function Register() {
     console.log("here");
 
     if (password != confirm_password) {
-      console.log("Pass did not match");
+      toast.error("Pass did not match");
       return;
     }
     // Submit form data to API here
@@ -47,9 +48,15 @@ export default function Register() {
     register(formData);
   };
   useEffect(() => {
-    if (isSuccess || isError || registerData) {
+    if (isSuccess && registerData?.message) {
+      toast.success(registerData?.message);
       resetForm();
     }
+
+    if (isError) toast.error(error?.data?.error);
+    if (isSuccess && registerData?.error) toast.error(registerData?.error);
+    if (isSuccess && registerData?.username)
+      toast.error("A User With that username already exists");
   }, [isError, isSuccess]);
   return (
     <div className="flex flex-col justify-center w-full items-center  bg-gray-100">
@@ -195,23 +202,6 @@ text-sm text-start font-medium text-gray-700"
         <p>
           Already Have an Account? <Link to="/login">Login</Link>
         </p>
-        {isError ? (
-          <p className="border p-2 text-red-700">{error?.data?.error}</p>
-        ) : (
-          ""
-        )}
-        {isSuccess && registerData?.username ? (
-          <p className="border p-2 text-red-700">
-            A User With that username already exists
-          </p>
-        ) : (
-          ""
-        )}
-        {isSuccess && registerData?.error ? (
-          <p className="border p-2 text-green-700">{registerData?.error}</p>
-        ) : (
-          ""
-        )}
       </div>
     </div>
   );

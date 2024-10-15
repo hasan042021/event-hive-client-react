@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import ImageUpload from "../../components/common/ImageUpload";
+import { toast } from "react-toastify";
 
 export default function UpdateEvent() {
   const [got, setGot] = useState(false);
@@ -28,12 +29,16 @@ export default function UpdateEvent() {
   const { data: eventData } = useGetEventQuery(eventId, { skip: !got });
   const { data: allTags } = useGetTagsQuery();
   const { data: categories } = useGetCategoriesQuery();
-  const [updateEvent, { data, isError, isLoading }] = useUpdateEventMutation();
+  const [updateEvent, { data, isError, isLoading, isSuccess: updated }] =
+    useUpdateEventMutation();
   useEffect(() => {
     if (eventId) setGot(true);
     console.log(eventId);
     console.log(eventData);
   }, [eventId]);
+  useEffect(() => {
+    if (updated) toast.success("Event Updated Successfully.");
+  }, [updated]);
   const [name, setName] = useState();
   const [date, setDate] = useState();
   const [time, setTime] = useState();

@@ -42,6 +42,15 @@ export default function SingleEvent() {
   const [found, setFound] = useState(false);
   const [reload, setReload] = useState(false);
 
+  const { data: CurRsvp } = useGetCurrentEventRSVPQuery({
+    event__id: eventId,
+    attendee__id: user_id,
+  });
+
+  useEffect(() => {
+    console.log(CurRsvp);
+  }, [CurRsvp]);
+
   useEffect(() => {
     if (rsvp?.length > 0 && eventId && user_id) {
       console.log(rsvp.length, eventId, user_id);

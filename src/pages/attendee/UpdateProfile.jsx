@@ -28,6 +28,7 @@ import {
   makeUppercase,
 } from "../../utils/array_funcs";
 import ImageUpload from "../../components/common/ImageUpload";
+import { toast, ToastContainer } from "react-toastify";
 const FREQUENCY = [
   { id: "daily", name: "Daily" },
   { id: "weekly", name: "Weekly" },
@@ -44,18 +45,16 @@ export default function UpdateProfile() {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
   const [notification, setNotification] = useState("");
   const [in_app, setInApp] = useState("");
   const [freq, setFreq] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+
   useEffect(() => {
     if (id) setNow(true);
   }, [id]);
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+
   useEffect(() => {
     setFirstName(user?.user.first_name);
     setLastName(user?.user.last_name);
@@ -65,7 +64,7 @@ export default function UpdateProfile() {
     setFreq(user?.notification_frequency);
   }, [user]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const userEdited = {
       first_name,
@@ -78,23 +77,30 @@ export default function UpdateProfile() {
       receive_in_app_notifications: in_app,
       notification_frequency: freq,
     };
-    updateProfile({ id, data });
+    try {
+      await updateProfile({ id, data }).unwrap();
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      toast.error("Error updating profile!");
+    }
   }
 
-  const handleProfilePictureUpload = (e) => {
+  const handleProfilePictureUpload = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", profilePicture);
 
-    // Send the data to the API
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
     const body = { id: id, data: formData };
-    updateProfile(body);
+    try {
+      await updateProfile(body).unwrap();
+      toast.success("Profile picture updated successfully!");
+    } catch (error) {
+      toast.error("Error updating profile picture!");
+    }
     setProfilePicture(null);
     setSelectedImage(null);
   };
+
   return (
     <Layout>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

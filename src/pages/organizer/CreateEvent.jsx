@@ -14,20 +14,21 @@ import {
   Input,
   Button,
 } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 
 export default function CreateEvent() {
   const [now, setNow] = useState(false);
   const { data: allTags } = useGetTagsQuery();
   const { data: categories } = useGetCategoriesQuery();
-  const [createEvent] = useCreateEventMutation();
+  const [
+    createEvent,
+    { isSuccess: eventCreated, isError: eventCreationError },
+  ] = useCreateEventMutation();
   const { user } = useSelector((state) => state.auth);
   const { data: organizerInfo, isSuccess } = useGetProfileQuery(user.id, {
     skip: !now,
   });
 
-  useEffect(() => {
-    if (isSuccess) setNow(true);
-  }, [isSuccess]);
   const [name, setName] = useState();
   const [date, setDate] = useState();
   const [time, setTime] = useState();
@@ -37,7 +38,27 @@ export default function CreateEvent() {
   const [category, setCategory] = useState();
   const [tags, setTags] = useState([]);
   const [isPublic, setIsPublic] = useState();
+  const resetForm = () => {
+    setName("");
+    setDate("");
+    setTime("");
+    setLocation("");
+    setThumbnail("");
+    setDescription("");
+    setCategory("");
+    setTags([]); // Resetting tags to an empty array
+    setIsPublic(false); // Assuming default is `false`
+  };
 
+  useEffect(() => {
+    if (isSuccess) setNow(true);
+  }, [isSuccess]);
+  useEffect(() => {
+    if (eventCreated) {
+      toast.success("Event Created Successfully.");
+      resetForm();
+    }
+  }, [eventCreated]);
   const handleTagChange = (event) => {
     const selectedOptions = Array.from(event.target.options)
       .filter((option) => option.selected)

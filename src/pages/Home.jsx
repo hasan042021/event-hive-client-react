@@ -16,11 +16,12 @@ export default function Home() {
   const [selectedslug, setSelectedSlug] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [tag, setTag] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [now, setNow] = useState(false);
   const [filter, setFilter] = useState({});
 
   const reset = () => {
-    setTag(null);
+    setSelectedTags([]);
     setSelectedSlug(null);
     setSelectedCategory(null);
   };
@@ -29,20 +30,21 @@ export default function Home() {
   const { data: filteredEvents, isSuccess: isFilterSuccess } =
     useFilterEventsQuery(filter, { skip: !now });
   useEffect(() => {
-    console.log(filteredEvents);
+    console.log(filteredEvents, "line 33");
   }, [filteredEvents]);
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(tag, selectedslug);
+    console.log(selectedTags, selectedslug);
     let filter = {};
-    if (selectedslug == null && tag == null) {
+
+    if (selectedslug == null && selectedTags?.length === 0) {
       filter = {};
-    } else if (selectedslug && tag == null) {
+    } else if (selectedslug && selectedTags?.length === 0) {
       filter = { category: selectedslug };
-    } else if (tag && selectedslug == null) {
-      filter = { tag: tag };
+    } else if (selectedTags?.length > 0 && selectedslug == null) {
+      filter = { tags: selectedTags }; // Pass array of selected tags
     } else {
-      filter = { category: selectedslug, tag: tag };
+      filter = { category: selectedslug, tags: selectedTags }; // Handle both category and tags
     }
     setFilter(filter);
     setNow(true);
@@ -59,11 +61,13 @@ export default function Home() {
             setSelectedCategory={setSelectedCategory}
             tag={tag}
             setTag={setTag}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
             handleSubmit={handleSubmit}
             reset={reset}
           />
         </div>
-        <div className="col-span-6 ">
+        <div className="col-span-6">
           {isFilterSuccess ? (
             <Events events={filteredEvents} />
           ) : (

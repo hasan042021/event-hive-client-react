@@ -92,7 +92,7 @@ export default function EventDetails({ event }) {
             </Typography>
           </div>
           <div>
-            {state?.auth?.user?.role == "organizer" ? (
+            {state?.auth?.user?.role == "organizer" || !state.auth.user ? (
               ""
             ) : (
               <Button

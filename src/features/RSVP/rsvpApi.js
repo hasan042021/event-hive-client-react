@@ -32,6 +32,7 @@ const rsvpApi = apiSlice.injectEndpoints({
         params: {
           event__id: filters.id,
           attendee__id: filters.id,
+          is_accepted: true,
         },
       }),
       providesTags: ["RSVP"],

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   token: undefined,
@@ -16,7 +15,7 @@ const authSlice = createSlice({
     },
     // eslint-disable-next-line no-unused-vars
     userLoggedOut: (state, action) => {
-      state.accessToken = undefined;
+      state.token = undefined;
       state.user = undefined;
     },
   },

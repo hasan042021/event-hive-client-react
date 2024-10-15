@@ -4,29 +4,41 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useSelector } from "react-redux";
 import { userInfoSet } from "../../features/auth/authSlice";
 import { Link, useMatch, useNavigate } from "react-router-dom";
-import Message from "../../components/common/Alert";
+import { CSSTransition } from "react-transition-group";
+
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [myerror, setMyerror] = useState("");
+  const [myError, setMyError] = useState("");
 
-  const [login, { data: user, isLoading, error, isError, isSuccess }] =
+  const [login, { data: res, isLoading, error, isError, isSuccess }] =
     useLoginMutation();
-  const organizerLogin = useMatch("/organizer");
   const navigate = useNavigate();
   useEffect(() => {
-    if (isSuccess && user?.token) {
+    if (isSuccess && res?.token) {
       navigate("/");
     }
-    setMyerror(user?.error);
-  }, [isSuccess, organizerLogin, user?.id]);
-
+  }, [isSuccess, res?.id]);
   // useEffect(() => {
-  //   if (isSuccess || isError) {
-  //     setOpen(true);
-  //   }
-  // }, [isError, isSuccess]);
+  //   toast.error(res?.error);
+  //   console.log(res?.error);
+  // }, [res?.error]);
+  useEffect(() => {
+    if (isSuccess && res?.error) {
+      // This will trigger only when there is an error response
+      console.log(res?.error);
+      setMyError(res?.error);
+    }
+
+    if (isError && error) {
+      // Handle errors from the server (e.g., network issues)
+      toast.error("Login Failed: " + (error?.data?.detail || "Unknown error"));
+    }
+
+    // Reset the error state after showing the toast (optional)
+  }, [isSuccess, res?.error, isError, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center w-full items-center h-screen bg-gray-100">
+    <div className="flex flex-col justify-center w-full items-center h-screen bg-gray-100 relative">
       <div className="w-80 max-w-md p-5 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -73,10 +85,49 @@ export default function Login() {
           >
             Login
           </button>
+          {myError && (
+            <div
+              className={`absolute border-red-800 border-l-8 top-0 right-2 bg-white text-red-800 p-2 ps-3 shadow flex gap-2 items-center cursor-pointer transform transition-all duration-300 ease-in-out 
+    ${myError ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 mx-2 text-red"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                />
+              </svg>
+
+              <p>{myError}</p>
+
+              {/* cross button */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-5 mx-2 cursor-pointer"
+                onClick={() => setMyError("")}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          )}
           <p>
             Don't have an Account? <Link to="/register">Sign Up</Link>
           </p>
-          {myerror ? <p className="text-red-700 border">{myerror}</p> : ""}
         </form>
       </div>
     </div>

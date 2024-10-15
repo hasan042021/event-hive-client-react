@@ -28,7 +28,9 @@ a:hover {
 body {
   margin: 0;
   min-width: 320px;
+  max-width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -66,4 +68,23 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }

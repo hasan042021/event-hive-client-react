@@ -15,6 +15,8 @@ import AttendeeOutlet from "./components/outlets/AttendeeOutlet";
 import OrganizerOutlet from "./components/outlets/OrganizerOutlet";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const authCheck = useAuthCheck();
@@ -23,6 +25,17 @@ function App() {
     <p>Checking Authentication...</p>
   ) : (
     <div className="App">
+      <ToastContainer
+        position="top-right" // Ensures toast shows at the top-right of the screen
+        autoClose={5000} // Auto-close after 5 seconds
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
