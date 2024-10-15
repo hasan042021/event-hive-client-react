@@ -33,7 +33,9 @@ function NavList({ user, handleLogout }) {
   );
   console.log(rsvpEventIds);
   // Filter events to get only those not in the RSVP list
-  const availableEvents = events.filter((event) => !rsvpEventIds.has(event.id));
+  const availableEvents = events?.filter(
+    (event) => !rsvpEventIds.has(event.id)
+  );
   console.log(availableEvents);
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
