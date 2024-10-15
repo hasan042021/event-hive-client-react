@@ -25,11 +25,6 @@ function NavList({ user, handleLogout }) {
   const userId = user?.id;
   console.log("userid", userId);
 
-  console.log(events, rsvps);
-  if (loadingEvents || loadingRSVPs) {
-    return <div>Loading...</div>; // You can replace this with a loading skeleton if needed
-  }
-
   // Get RSVP'd event IDs by the current user
   const rsvpEventIds = new Set(
     rsvps
