@@ -65,10 +65,10 @@ export default function UpdateEvent() {
     setLocation(eventData?.location);
     setThumbnailUrl(eventData?.thumbnail);
     setDescription(eventData?.description);
-    setCategory(eventData?.category.id);
+    setCategory(eventData?.category?.id);
     const t_ids = [];
     eventData?.tags.forEach((t) => {
-      t_ids.push(t.id);
+      t_ids.push(t?.id);
     });
     setTags(t_ids);
     setIsPublic(eventData?.is_public);
