@@ -17,10 +17,10 @@ import { useGetRSVPsQuery } from "../../features/RSVP/rsvpApi";
 
 function NavList({ user, handleLogout }) {
   const { data: events, isLoading: loadingEvents } = useGetEventsQuery(null, {
-    skip: user?.role == "organizer",
+    skip: user?.role == "organizer" || !user,
   });
   const { data: rsvps, isLoading: loadingRSVPs } = useGetRSVPsQuery(null, {
-    skip: user?.role == "organizer",
+    skip: user?.role == "organizer" || !user,
   });
   const userId = user?.id;
   console.log("userid", userId);
@@ -33,8 +33,8 @@ function NavList({ user, handleLogout }) {
   // Get RSVP'd event IDs by the current user
   const rsvpEventIds = new Set(
     rsvps
-      .filter((rsvp) => rsvp.attendee.id === userId)
-      .map((rsvp) => rsvp.event.id)
+      ?.filter((rsvp) => rsvp.attendee.id === userId)
+      ?.map((rsvp) => rsvp.event.id)
   );
   console.log(rsvpEventIds);
   // Filter events to get only those not in the RSVP list
