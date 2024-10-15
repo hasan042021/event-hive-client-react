@@ -4,7 +4,6 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useSelector } from "react-redux";
 import { userInfoSet } from "../../features/auth/authSlice";
 import { Link, useMatch, useNavigate } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 
 import { toast } from "react-toastify";
 
