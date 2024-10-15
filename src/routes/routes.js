@@ -5,6 +5,7 @@ import CreateEvent from "../pages/organizer/CreateEvent";
 import UpdateEvent from "../pages/organizer/UpdateEvent";
 import SingleEvent from "../pages/attendee/SingleEvent";
 import Dashboard from "../pages/organizer/Dashboard";
+import RSVPs from "../pages/attendee/RSVPS";
 
 export const attendeePrivateRoutes = [
   {
@@ -21,6 +22,11 @@ export const attendeePrivateRoutes = [
     path: "profile",
     name: "Update Details",
     component: UpdateProfile,
+  },
+  {
+    path: "rsvps",
+    name: "RSVPs",
+    component: RSVPs,
   },
 ];
 

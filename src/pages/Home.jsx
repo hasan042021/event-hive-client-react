@@ -11,6 +11,9 @@ import {
   useGetEventsQuery,
   useGetTagsQuery,
 } from "../features/events/eventsApi";
+import SidebarSkeleton from "../components/skeletons/SidebarSkeleton";
+import EventsSkeleton from "../components/skeletons/EventsSkeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Home() {
   const [selectedslug, setSelectedSlug] = useState(null);
@@ -26,9 +29,16 @@ export default function Home() {
     setSelectedCategory(null);
   };
 
-  const { data: events, isLoading, isSuccess } = useGetEventsQuery();
-  const { data: filteredEvents, isSuccess: isFilterSuccess } =
-    useFilterEventsQuery(filter, { skip: !now });
+  const {
+    data: events,
+    isLoading: eventsLoading,
+    isSuccess,
+  } = useGetEventsQuery();
+  const {
+    data: filteredEvents,
+    isLoading: filteredLoading,
+    isSuccess: isFilterSuccess,
+  } = useFilterEventsQuery(filter, { skip: !now });
   useEffect(() => {
     console.log(filteredEvents, "line 33");
   }, [filteredEvents]);
@@ -68,7 +78,9 @@ export default function Home() {
           />
         </div>
         <div className="col-span-6">
-          {isFilterSuccess ? (
+          {filteredLoading || eventsLoading ? (
+            <EventsSkeleton /> // Display skeleton while events are loading
+          ) : isFilterSuccess ? (
             <Events events={filteredEvents} />
           ) : (
             <Events events={events} />

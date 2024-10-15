@@ -4,6 +4,7 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useSelector } from "react-redux";
 import { userInfoSet } from "../../features/auth/authSlice";
 import { Link, useMatch, useNavigate } from "react-router-dom";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 import { toast } from "react-toastify";
 
@@ -80,9 +81,16 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600"
+            className="font-sans w-full flex justify-center gap-2 items-center bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600"
           >
-            Login
+            {isLoading ? (
+              <>
+                <span className="font-sans">Logging In</span>{" "}
+                <ScaleLoader color="white" />
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
           {myError && (
             <div
@@ -124,6 +132,7 @@ export default function Login() {
               </svg>
             </div>
           )}
+
           <p>
             Don't have an Account? <Link to="/register">Sign Up</Link>
           </p>

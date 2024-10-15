@@ -50,7 +50,10 @@ export default function OrganizersEventDetails({ event }) {
               color="gray"
               className="italic font-normal"
             >
-              <Link to={`/organizer/attendees/${id}`}>
+              <Link
+                state={{ count: attendee_count }}
+                to={`/organizer/attendees/${id}`}
+              >
                 {" "}
                 Total Attendees: {attendee_count}
               </Link>

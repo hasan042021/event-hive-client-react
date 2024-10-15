@@ -5,13 +5,41 @@ import {
   Typography,
   IconButton,
   Button,
+  Badge,
 } from "@material-tailwind/react";
 import { Bars3Icon, PowerIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLogoutMutation } from "../../features/auth/authApi";
+import { ServerStackIcon } from "@heroicons/react/16/solid";
+import { useGetEventsQuery } from "../../features/events/eventsApi";
+import { useGetRSVPsQuery } from "../../features/RSVP/rsvpApi";
 
 function NavList({ user, handleLogout }) {
+  const { data: events, isLoading: loadingEvents } = useGetEventsQuery(null, {
+    skip: user?.role == "organizer",
+  });
+  const { data: rsvps, isLoading: loadingRSVPs } = useGetRSVPsQuery(null, {
+    skip: user?.role == "organizer",
+  });
+  const userId = user?.id;
+  console.log("userid", userId);
+
+  console.log(events, rsvps);
+  if (loadingEvents || loadingRSVPs) {
+    return <div>Loading...</div>; // You can replace this with a loading skeleton if needed
+  }
+
+  // Get RSVP'd event IDs by the current user
+  const rsvpEventIds = new Set(
+    rsvps
+      .filter((rsvp) => rsvp.attendee.id === userId)
+      .map((rsvp) => rsvp.event.id)
+  );
+  console.log(rsvpEventIds);
+  // Filter events to get only those not in the RSVP list
+  const availableEvents = events.filter((event) => !rsvpEventIds.has(event.id));
+  console.log(availableEvents);
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       {!user ? (
@@ -93,6 +121,20 @@ function NavList({ user, handleLogout }) {
               className="flex items-center text-white hover:text-white"
             >
               Account
+            </Link>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-medium"
+          >
+            <Link to="/attendee/rsvps" state={{ data: availableEvents }}>
+              <Badge color="white" content={availableEvents?.length}>
+                <IconButton>
+                  <ServerStackIcon className="h-5 w-5 " />
+                </IconButton>
+              </Badge>
             </Link>
           </Typography>
           <Typography

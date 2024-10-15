@@ -3,6 +3,7 @@ import { useRegisterMutation } from "../../features/auth/authApi";
 import { Link } from "react-router-dom";
 import Message from "../../components/common/Alert";
 import { toast } from "react-toastify";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -194,9 +195,16 @@ text-sm text-start font-medium text-gray-700"
           </div>
           <button
             type="submit"
-            className="w-full text-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-white  hover:bg-indigo-700"
+            className="w-full flex items-center justify-center text-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-white  hover:bg-indigo-700"
           >
-            Sign Up
+            {isLoading ? (
+              <>
+                <span className="font-sans">Registering User</span>{" "}
+                <ScaleLoader color="white" />
+              </>
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
         <p>
