@@ -112,10 +112,19 @@ export function SidebarHome({
           </div>
 
           {/* Buttons */}
-          <Button color="cyan" type="submit" onClick={reset} className="mx-2">
+          <Button
+            color="cyan"
+            type="submit"
+            onClick={reset}
+            className="mx-2 p-1 px-4 rounded-full"
+          >
             Reset
           </Button>
-          <Button color="blue" type="submit">
+          <Button
+            color="blue"
+            type="submit"
+            className="mx-2 p-1 px-4 rounded-full"
+          >
             Filter
           </Button>
         </form>

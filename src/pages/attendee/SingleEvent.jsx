@@ -21,6 +21,17 @@ import {
 import { useSelector } from "react-redux";
 import { findRSVP } from "../../utils/array_funcs";
 import SingleEventSkeleton from "../../components/skeletons/SingleEventSkeleton";
+import {
+  CalendarDateRangeIcon,
+  ClockIcon,
+  DocumentIcon,
+  DocumentTextIcon,
+  MapIcon,
+} from "@heroicons/react/24/outline";
+import {
+  convertTo12HourFormat,
+  formatDate,
+} from "../../utils/date_time_format";
 
 export default function SingleEvent() {
   const { eventId } = useParams();
@@ -77,7 +88,7 @@ export default function SingleEvent() {
       {isLoading ? (
         <SingleEventSkeleton />
       ) : (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-start">
           <Card className="w-full max-w-[48rem] flex-row m-2">
             <CardHeader
               shadow={false}
@@ -90,25 +101,50 @@ export default function SingleEvent() {
                 className="h-full w-full object-cover"
               />
             </CardHeader>
-            <CardBody>
-              <Typography variant="h6" color="gray" className="mb-4 uppercase">
-                {event?.organizer.user.first_name}{" "}
-                {event?.organizer.user.last_name}
-              </Typography>
-              <Typography variant="h4" color="blue-gray" className="mb-2">
+            <CardBody className="text-start">
+              <Typography
+                variant="h4"
+                color="blue-gray"
+                className="mb-2 capitalize"
+              >
                 {event?.name}
               </Typography>
-              <Typography color="gray" className="font-normal">
-                {event?.category?.name}
+              <Typography variant="h6" color="gray" className="mb-2 capitalize">
+                Organized by {event?.organizer.user.first_name}{" "}
+                {event?.organizer.user.last_name}
               </Typography>
-              <Typography color="gray" className="mb-8 font-normal">
-                {event?.description}
+              <div>
+                <Typography className="flex  gap-2 " variant="h6">
+                  <span className=" flex border-r-2 pr-2 border-gray-800  items-center justify-center">
+                    <ClockIcon className="h-4 inline-block mr-2" />
+
+                    {convertTo12HourFormat(event.time)}
+                  </span>
+                  <span className=" flex items-center justify-center">
+                    <CalendarDateRangeIcon className="h-4 inline-block mr-2" />
+
+                    {formatDate(event.CurRsvpdate)}
+                  </span>
+                </Typography>
+              </div>
+              <Typography className="flex  gap-2 " variant="h6">
+                <span className=" flex  items-center justify-center">
+                  <MapIcon className="h-4 inline-block mr-2" />
+
+                  {event.location}
+                </span>
               </Typography>
+              <Typography color="gray" className="font-normal my-2 ">
+                <span className="bg-teal-600 rounded p-1 text-white ">
+                  {event?.category?.name}
+                </span>
+              </Typography>
+
               <Typography>
                 {event?.tags?.map((tag) => (
                   <Chip
                     key={tag.id}
-                    className="inline-block m-1"
+                    className="inline-block m-1 bg-gradient-to-r from-cyan-500 to-blue-500"
                     value={tag?.name}
                   />
                 ))}
@@ -165,6 +201,17 @@ export default function SingleEvent() {
                 )}
               </div>
             </CardBody>
+          </Card>
+          <Card className="border  w-full text-start max-w-[48rem] p-5 m-2 shadow-xl">
+            <Typography variant="h6" color="gray" className="font-normal  ">
+              <span className="inline-flex font-bold bg-white rounded ">
+                <DocumentTextIcon className="h-6" /> Description
+              </span>
+            </Typography>
+            <div className="h-0.5 w-28 bg-teal-800"></div>
+            <Typography color="black" className="font-medium my-2">
+              {event?.description}
+            </Typography>
           </Card>
         </div>
       )}
