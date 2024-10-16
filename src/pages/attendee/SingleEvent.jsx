@@ -90,7 +90,7 @@ export default function SingleEvent() {
         <SingleEventSkeleton />
       ) : (
         <div className="flex flex-col items-center justify-start">
-          <Card className="w-full max-w-[48rem] flex-row m-2">
+          <Card className="w-full max-w-[48rem] flex-row m-2 border-2">
             <CardHeader
               shadow={false}
               floated={false}
@@ -132,7 +132,7 @@ export default function SingleEvent() {
                 <span className=" flex  items-center justify-center">
                   <MapIcon className="h-4 inline-block mr-2" />
 
-                  {event.location}
+                  {event?.location}
                 </span>
               </Typography>
               <Typography color="gray" className="font-normal my-2 ">
@@ -153,7 +153,7 @@ export default function SingleEvent() {
 
               <div className="my-2 ">
                 {!found ? (
-                  <>
+                  <div className="flex items-center justify-center gap-5">
                     <Typography
                       variant="small"
                       className="flex items-end justify-center cursor-pointer"
@@ -194,7 +194,7 @@ export default function SingleEvent() {
                       </svg>
                       decline
                     </Typography>
-                  </>
+                  </div>
                 ) : (
                   <div className="bg-deep-orange-100 p-1 rounded text-black italic font-sans">
                     {status}
@@ -203,7 +203,7 @@ export default function SingleEvent() {
               </div>
             </CardBody>
           </Card>
-          <Card className="border  w-full text-start max-w-[48rem] p-5 m-2 shadow-xl">
+          <Card className="border-2  w-full text-start max-w-[48rem] p-5 m-2 shadow-xl">
             <Typography variant="h6" color="gray" className="font-normal  ">
               <span className="inline-flex font-bold bg-white rounded ">
                 <DocumentTextIcon className="h-6" /> Description

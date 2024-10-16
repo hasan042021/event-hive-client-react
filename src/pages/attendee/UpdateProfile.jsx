@@ -77,6 +77,7 @@ export default function UpdateProfile() {
       receive_in_app_notifications: in_app,
       notification_frequency: freq,
     };
+    console.log(data);
     try {
       await updateProfile({ id, data }).unwrap();
       toast.success("Profile updated successfully!");
@@ -209,7 +210,7 @@ export default function UpdateProfile() {
               label="Select Version"
               className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               value={freq}
-              onChange={(e) => setFreq(e.target.value)}
+              onChange={(e) => setFreq(e)}
             >
               {FREQUENCY?.map((tag) => (
                 <Option key={tag.id} value={tag.id}>
