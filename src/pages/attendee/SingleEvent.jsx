@@ -61,6 +61,7 @@ export default function SingleEvent() {
       }
     }
   }, [rsvp, eventId, user_id]);
+  console.log(event);
 
   const handleAccept = async () => {
     // Optimistically update the UI
@@ -118,12 +119,12 @@ export default function SingleEvent() {
                   <span className=" flex border-r-2 pr-2 border-gray-800  items-center justify-center">
                     <ClockIcon className="h-4 inline-block mr-2" />
 
-                    {convertTo12HourFormat(event.time)}
+                    {convertTo12HourFormat(event?.time)}
                   </span>
                   <span className=" flex items-center justify-center">
                     <CalendarDateRangeIcon className="h-4 inline-block mr-2" />
 
-                    {formatDate(event.CurRsvpdate)}
+                    {formatDate(event?.CurRsvpdate)}
                   </span>
                 </Typography>
               </div>
@@ -209,7 +210,7 @@ export default function SingleEvent() {
               </span>
             </Typography>
             <div className="h-0.5 w-28 bg-teal-800"></div>
-            <Typography color="black" className="font-medium my-2">
+            <Typography color="grey" className="font-normal  my-2">
               {event?.description}
             </Typography>
           </Card>
