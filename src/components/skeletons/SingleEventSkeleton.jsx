@@ -49,6 +49,10 @@ export default function SingleEventSkeleton() {
           </div>
         </CardBody>
       </Card>
+      <Card className="w-full text-start flex flex-col p-3  max-w-[48rem]  mt-2">
+        <Skeleton className="w-1/4" height={50} />
+        <Skeleton className="w-full" height={150} />
+      </Card>
     </div>
   );
 }

@@ -69,3 +69,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.react-datepicker {
+  @apply bg-white border border-gray-300 rounded-lg shadow-md;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  @apply bg-blue-500 text-white;
+}
+
+.react-datepicker__day--keyboard-selected {
+  @apply bg-blue-400;
+}
