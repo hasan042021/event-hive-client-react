@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   const authCheck = useAuthCheck();
@@ -39,6 +40,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/attendee/*" element={<AttendeeOutlet />}>

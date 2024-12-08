@@ -43,6 +43,16 @@ function NavList({ user, handleLogout }) {
   console.log(availableEvents);
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <Link className="" to="/about">
+          About Us
+        </Link>
+      </Typography>
       {!user ? (
         <>
           <Typography

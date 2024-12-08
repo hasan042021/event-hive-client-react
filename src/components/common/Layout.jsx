@@ -6,15 +6,19 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout w-full overflow-hidden">
+    <div className="layout min-h-screen flex flex-col">
+      {/* Navbar at the top */}
       <header className="navbar">
         <NavbarCustom />
       </header>
-      <main className="m-auto w-4/5 flex flex-col justify-center items-between">
+
+      {/* Main content area, takes up available space */}
+      <main className="flex-grow m-auto w-4/5 flex flex-col justify-center items-between">
         {children}
       </main>
 
-      <footer className="footer">
+      {/* Footer at the bottom */}
+      <footer className="footer mt-auto">
         <Footer />
       </footer>
     </div>
