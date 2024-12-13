@@ -55,7 +55,7 @@ const RSVPs = () => {
                       <Avatar
                         size="xl"
                         variant="rounded"
-                        src={event.thumbnail}
+                        src={event.thumbnail_url}
                       />
                     </ListItemPrefix>
                     <div className="flex-grow mx-4">

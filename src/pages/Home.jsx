@@ -4,7 +4,7 @@ import UpdateProfile from "./attendee/UpdateProfile";
 import Layout from "../components/common/Layout";
 import Events from "../components/HomeEvents/Events";
 import { SidebarHome } from "../components/HomeEvents/SidebarHome";
-import { Chip } from "@material-tailwind/react";
+import { Button, Chip, Drawer } from "@material-tailwind/react";
 import {
   useFilterEventsQuery,
   useGetCategoriesQuery,
@@ -14,6 +14,7 @@ import {
 import SidebarSkeleton from "../components/skeletons/SidebarSkeleton";
 import EventsSkeleton from "../components/skeletons/EventsSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   const [selectedslug, setSelectedSlug] = useState(null);
@@ -58,26 +59,54 @@ export default function Home() {
     }
     setFilter(filter);
     setNow(true);
+    setOpen(false);
   }
+
+  const [open, setOpen] = React.useState(false);
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-9 gap-4 w-full">
-        <div className="col-span-3">
-          <SidebarHome
-            selectedslug={selectedslug}
-            setSelectedSlug={setSelectedSlug}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            tag={tag}
-            setTag={setTag}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-            handleSubmit={handleSubmit}
-            reset={reset}
-          />
+      <div className=" w-full">
+        <div>
+          <button
+            className="z-50 fixed top-1/2 left-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-r-full shadow-md hover:bg-blue-600"
+            onClick={openDrawer}
+          >
+            <ChevronRightIcon className="h-6 w-6" />
+          </button>
+
+          <Drawer
+            open={open}
+            className="h-100"
+            onClose={closeDrawer}
+            size={window.innerWidth >= 768 ? 400 : window.innerWidth - 30}
+          >
+            {/* Close button */}
+            <button
+              className="z-50 absolute  top-1/2 right-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-l-full shadow-md hover:bg-blue-600"
+              onClick={closeDrawer}
+            >
+              <ChevronLeftIcon className="h-6 w-6" />
+            </button>
+
+            <SidebarHome
+              selectedslug={selectedslug}
+              setSelectedSlug={setSelectedSlug}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              tag={tag}
+              setTag={setTag}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+              handleSubmit={handleSubmit}
+              reset={reset}
+            />
+          </Drawer>
         </div>
-        <div className="col-span-6">
+
+        <div className="md:col-span-6 col-span-9">
           {filteredLoading || eventsLoading ? (
             <EventsSkeleton /> // Display skeleton while events are loading
           ) : isFilterSuccess ? (

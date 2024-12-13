@@ -22,7 +22,7 @@ import {
 
 export default function OrganizersEventDetails({ event }) {
   const [deleteEvent] = useDeleteEventMutation();
-  const { id, thumbnail, name, description, time, date, attendee_count } =
+  const { id, thumbnail_url, name, description, time, date, attendee_count } =
     event;
 
   const handleDelete = (e, id) => {
@@ -38,7 +38,7 @@ export default function OrganizersEventDetails({ event }) {
             <div className="w-28 h-28 border-2 rounded overflow-hidden">
               <img
                 className=" object-cover w-full h-full rounded "
-                src={thumbnail}
+                src={thumbnail_url}
                 alt={name}
               />
             </div>

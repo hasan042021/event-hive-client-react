@@ -88,10 +88,10 @@ export default function CreateEvent() {
 
   return (
     <Layout>
-      <div className="flex my-3 text-start flex-col items-center justify-center">
+      <div className="flex my-3 w-full text-start flex-col items-center justify-center">
         <form
           onSubmit={handleSubmit}
-          className="w-1/2 p-3 shadow m-2 space-y-4 "
+          className="md:w-1/2 w-11/12 p-3 mx-2 my-0 shadow m-2 space-y-4 bg-white"
         >
           <Input
             value={name}

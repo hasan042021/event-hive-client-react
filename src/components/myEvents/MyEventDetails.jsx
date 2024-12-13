@@ -32,7 +32,7 @@ export default function MyEventDetails({ event }) {
         <div>
           <img
             className="flex items-center justify-center w-28 rounded border-2 h-full"
-            src={myevent.thumbnail}
+            src={myevent.thumbnail_url}
             variant="square"
           />
         </div>

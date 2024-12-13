@@ -20,6 +20,8 @@ import {
 } from "@material-tailwind/react";
 import ImageUpload from "../../components/common/ImageUpload";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useGetProfileQuery } from "../../features/profile/profileApi";
 
 export default function UpdateEvent() {
   const [got, setGot] = useState(false);
@@ -63,7 +65,7 @@ export default function UpdateEvent() {
     setDate(eventData?.date);
     setTime(eventData?.time);
     setLocation(eventData?.location);
-    setThumbnailUrl(eventData?.thumbnail);
+    setThumbnailUrl(eventData?.thumbnail_url);
     setDescription(eventData?.description);
     setCategory(eventData?.category?.id);
     const t_ids = [];
@@ -73,6 +75,8 @@ export default function UpdateEvent() {
     setTags(t_ids);
     setIsPublic(eventData?.is_public);
   }, [eventData]);
+  const { id: org_id } = useSelector((state) => state?.auth?.user);
+  console.log("org_id", org_id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,6 +91,7 @@ export default function UpdateEvent() {
       category,
       tags,
       isPublic,
+      organizer_id: Number(org_id),
     };
 
     const body = { id: eventId, data: updatedData };
@@ -94,8 +99,10 @@ export default function UpdateEvent() {
   };
   const handleThumbnailUpload = (e) => {
     e.preventDefault();
+    console.log(org_id);
     const formData = new FormData();
     formData.append("thumbnail", profilePicture);
+    formData.append("organizer_id", Number(org_id));
 
     // Send the data to the API
     for (const [key, value] of formData.entries()) {
@@ -141,7 +148,7 @@ export default function UpdateEvent() {
         </Card>
         <form
           onSubmit={handleSubmit}
-          className="w-1/2 p-3 shadow m-2 space-y-4 text-start"
+          className="md:w-1/2 w-full p-3 bg-white rounded-lg shadow m-2 space-y-4 text-start"
         >
           <Input
             value={name}

@@ -25,7 +25,7 @@ import { capitalizeWords } from "../../utils/array_funcs";
 export default function EventDetails({ event }) {
   const {
     id,
-    thumbnail,
+    thumbnail_url,
     category,
     organizer,
     name,

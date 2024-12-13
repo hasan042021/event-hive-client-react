@@ -82,7 +82,7 @@ export default function ImageUpload({
             />
           </svg>
         </IconButton>
-        <Typography> Click The Icon To Upload Image</Typography>
+        <Typography color="black"> Click The Icon To Upload Image</Typography>
       </div>
 
       <input ref={inputRef} type="file" hidden onChange={handleFileUpload} />

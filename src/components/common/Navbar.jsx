@@ -42,7 +42,7 @@ function NavList({ user, handleLogout }) {
   );
   console.log(availableEvents);
   return (
-    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row  items-center lg:gap-6">
       <Typography
         as="li"
         variant="small"
@@ -266,7 +266,7 @@ hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
             {openNav ? (
               <XMarkIcon
                 className="h-6 
-w-6"
+w-6 text-light-blue-500"
                 strokeWidth={2}
               />
             ) : (

@@ -6,14 +6,14 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout min-h-screen flex flex-col">
+    <div className="layout max-w-screen min-h-screen flex flex-col">
       {/* Navbar at the top */}
       <header className="navbar">
         <NavbarCustom />
       </header>
 
       {/* Main content area, takes up available space */}
-      <main className="flex-grow m-auto w-4/5 flex flex-col justify-center items-between">
+      <main className="flex-grow m-auto w-11/12 flex flex-col justify-center items-between">
         {children}
       </main>
 
