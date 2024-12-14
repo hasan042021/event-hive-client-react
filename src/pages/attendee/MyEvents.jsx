@@ -58,7 +58,7 @@ export default function MyEvents() {
   return (
     <Layout>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center justify-center gap-3">
+        <div className="container"><div className="flex flex-col md:flex-row items-center justify-center md:gap-3 gap-1">
           <MyDateRangePicker onDateRangeChange={handleDateRangeChange} />
 
           {/* Sort button to toggle sorting order */}
@@ -105,7 +105,7 @@ export default function MyEvents() {
           <EventListSkeleton />
         ) : (
           <MyEventsList events={sortedEvents} />
-        )}
+        )}</div>
       </div>
     </Layout>
   );

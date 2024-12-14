@@ -80,48 +80,27 @@ export default function AboutUs() {
 
   return (
     <Layout>
+      <div className="flex items-center justify-center">
       <div className="bg-white">
         {/* Introduction */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGRkZGRkYiIGZpbGwtb3BhY2l0eT0iLjEiPjxwYXRoIGQ9Ik0zNiAzNGgLTJWMzJIMzZ6TTQwIDMwSDM4djJINDB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-10" />
-          <div className="relative max-w-4xl mx-auto text-center">
-            <Typography variant="h1" color="white" className="mb-4">
+        <section  className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+          <div  className="absolute inset-0 bg-gradient-to-r  from-blue-500 to-cyan-500" />
+          <div className="absolute inset-0 bg-black bg-opacity-50" />
+       
+          <div className="relative max-w-3xl  mx-auto px-5 text-center">
+            <Typography variant="h2" color="white" className="mb-4">
               Welcome to Event Hive
             </Typography>
-            <Typography variant="lead" color="white" className="opacity-80">
-              Revolutionizing event management and simplifying the RSVP process
-              for attendees and organizers alike.
+            <Typography style={{fontFamily:"Arial"}} variant="p" color="white" className="opacity-70 italic">
+              "Revolutionizing event management and simplifying the RSVP process
+              for attendees and organizers alike."
             </Typography>
           </div>
         </section>
 
-        {/* Upcoming Events */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex justify-between items-center mb-8">
-              <Typography variant="h2" color="blue-gray">
-                Upcoming Events
-              </Typography>
-              <Button
-                variant="outlined"
-                color="blue"
-                className="flex items-center gap-2"
-              >
-                See All Events
-                <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {upcomingEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          </div>
-        </section>
-
+        
         {/* Our Mission */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <section className="py-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <Typography variant="h2" color="blue-gray" className="mb-4">
               Our Mission
@@ -140,33 +119,33 @@ export default function AboutUs() {
         </section>
 
         {/* Key Features */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-          <div className="max-w-5xl mx-auto">
+        <section className=" py-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
+          <div className="max-w-4xl mx-auto container">
             <Typography
               variant="h2"
               color="blue-gray"
-              className="mb-12 text-center"
+              className=" text-center"
             >
               Key Features
             </Typography>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FeatureCard
-                icon={<CalendarIcon className="h-8 w-8 text-blue-500" />}
+                icon={<CalendarIcon className=" text-blue-500" />}
                 title="Easy Event Creation"
                 description="Create and manage events with just a few clicks."
               />
               <FeatureCard
-                icon={<UserGroupIcon className="h-8 w-8 text-blue-500" />}
+                icon={<UserGroupIcon className=" text-blue-500" />}
                 title="Attendee Management"
                 description="Effortlessly manage your guest list and RSVPs."
               />
               <FeatureCard
-                icon={<CheckCircleIcon className="h-8 w-8 text-blue-500" />}
+                icon={<CheckCircleIcon className=" text-blue-500" />}
                 title="Quick RSVP"
                 description="Attendees can easily accept or decline invitations."
               />
               <FeatureCard
-                icon={<ChartBarIcon className="h-8 w-8 text-blue-500" />}
+                icon={<ChartBarIcon className=" text-blue-500" />}
                 title="Real-time Analytics"
                 description="Get insights on attendance and engagement."
               />
@@ -275,20 +254,21 @@ export default function AboutUs() {
           </div>
         </section>
       </div>
+      </div>
     </Layout>
   );
 }
 
 export function EventCard({ event }) {
   return (
-    <Card className="w-full max-w-[26rem] shadow-lg">
+    <Card className="w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] shadow-lg mx-auto">
       <CardHeader floated={false} color="blue-gray" className="relative h-56">
         <img
           src={event.thumbnail}
           alt={event.name}
           className="h-full w-full object-cover"
         />
-        <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
+        <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60" />
         <IconButton
           size="sm"
           color="red"
@@ -298,24 +278,24 @@ export function EventCard({ event }) {
           <HeartIcon className="h-6 w-6" />
         </IconButton>
       </CardHeader>
-      <CardBody>
-        <div className="mb-3 flex items-center justify-between">
-          <Typography variant="h5" color="blue-gray" className="font-medium">
+      <CardBody className="px-4 sm:px-6 py-4">
+        <div className="mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          <Typography variant="h5" color="blue-gray" className="font-medium text-center sm:text-left">
             {event.name}
           </Typography>
           <Typography
             color="blue-gray"
-            className="flex items-center gap-1.5 font-normal"
+            className="flex items-center gap-1.5 font-normal text-center sm:text-left"
           >
             <StarIcon className="-mt-0.5 h-5 w-5 text-yellow-700" />
             5.0
           </Typography>
         </div>
-        <Typography color="gray" className="mb-4 font-normal">
+        <Typography color="gray" className="mb-4 font-normal text-center sm:text-left">
           {event.description ||
             "Join us for an unforgettable event experience!"}
         </Typography>
-        <div className="group mt-8 inline-flex flex-wrap items-center gap-3">
+        <div className="group mt-8 inline-flex flex-wrap items-center gap-3 justify-center sm:justify-start">
           <Tooltip content={format(event.date, "MMMM d, yyyy")}>
             <span className="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
               <CalendarDaysIcon className="h-5 w-5" />
@@ -345,8 +325,8 @@ export function EventCard({ event }) {
           )}
         </div>
       </CardBody>
-      <CardFooter className="pt-3">
-        <div className="flex flex-wrap gap-2">
+      <CardFooter className="pt-3 px-4 sm:px-6">
+        <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
           {event.tags.map((tag, index) => (
             <span
               key={index}
@@ -361,23 +341,30 @@ export function EventCard({ event }) {
   );
 }
 
+
 function FeatureCard({ icon, title, description }) {
   return (
-    <Card className="mt-6">
-      <CardBody>
-        <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-blue-100">
+    <Card className="my-4 mb-0">
+      <CardBody className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+        {/* Icon Section */}
+        <div className="flex items-center justify-center w-12 h-12 mb-4 sm:mb-0 rounded-full bg-blue-50 p-2">
           {icon}
         </div>
-        <Typography variant="h5" color="blue-gray" className="mb-2">
-          {title}
-        </Typography>
-        <Typography color="gray" className="font-normal">
-          {description}
-        </Typography>
+
+        {/* Text Section */}
+        <div className="flex flex-col items-start justify-center">
+          <Typography variant="h6" color="blue-gray" className="mb-2 text-center sm:text-left">
+            {title}
+          </Typography>
+          <Typography color="gray" className="font-normal text-center sm:text-left">
+            {description}
+          </Typography>
+        </div>
       </CardBody>
     </Card>
   );
 }
+
 
 function TeamMember({ name, role, image }) {
   return (

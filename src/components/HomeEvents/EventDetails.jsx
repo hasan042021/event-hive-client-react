@@ -35,72 +35,116 @@ export default function EventDetails({ event }) {
     date,
   } = event;
   const state = useSelector((state) => state);
-  const truncatedDescription = description.split(" ").slice(0, 30).join(" ");
+  const truncatedDescription = description.split(" ").slice(0, 150).join(" ");
   return (
-    <Card className="w-full  rounded my-2 shadow-xl">
-      <List>
-        <ListItem className=" flex flex-col items-start">
-          {/* <ListItemPrefix>
-            <Avatar size="xl" variant="rounded" src={thumbnail} />
-          </ListItemPrefix> */}
-          <div>
-            <Typography
-              className="font-sans italic  text-cyan-800"
-              variant="h5"
-              color="gray-600"
+    <Card className="w-full max-w-screen-md rounded-lg my-3 shadow-lg border border-gray-300 bg-white overflow-hidden mx-auto ">
+  <List>
+    <ListItem className="flex flex-col items-start space-y-3">
+      {/* Event Name */}
+      <Typography
+        className="font-serif text-lg text-[#1A1A4D] tracking-wide"
+        variant="h6"
+      >
+        {capitalizeWords(name)}
+      </Typography>
+
+      {/* Organizer and Details */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full space-y-2 sm:space-y-0">
+        <div className="flex items-center space-x-4">
+          {/* Organizer */}
+          <Typography
+            variant="small"
+            color="gray"
+            className="flex items-center gap-2 text-[#4A4A4A] border-r pr-3 border-gray-300"
+          >
+            <UserIcon className="h-4 w-4 text-[#008080]" />
+            {capitalizeWords(organizer.user.first_name)} {capitalizeWords(organizer.user.last_name)}
+          </Typography>
+
+          {/* Time */}
+          <Typography
+            variant="small"
+            color="gray"
+            className="flex items-center gap-2 text-[#4A4A4A]"
+          >
+            <ClockIcon className="h-4 w-4 text-[#008080]" />
+            {convertTo12HourFormat(time)}
+          </Typography>
+        </div>
+
+        {/* Date */}
+        <Typography
+          variant="small"
+          color="gray"
+          className="flex items-center gap-2 text-[#4A4A4A]"
+        >
+          <CalendarDateRangeIcon className="h-4 w-4 text-[#008080]" />
+          {formatDate(date)}
+        </Typography>
+      </div>
+
+      {/* Category and Tags */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full space-y-2 sm:space-y-0">
+        <Typography
+          variant="small"
+          color="gray"
+          className="text-sm text-[#4A4A4A]"
+        >
+          <span className="font-semibold text-[#5B2C6F]">Category:</span> {capitalizeWords(category.name)}
+        </Typography>
+        <Typography
+          variant="small"
+          color="gray"
+          className="flex items-center flex-wrap gap-1"
+        >
+          <span className="font-semibold text-[#5B2C6F]">Tags:</span>
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="px-1 py-0.5 bg-[#E0F7FA] text-[#00695C] rounded-full text-xs"
             >
-              <i>{capitalizeWords(name)}</i>
-            </Typography>
-          </div>
-          <div className="flex">
-            <div className="">
-              <Typography
-                variant="small"
-                color="gray"
-                className="italic font-normal border-r-2 pr-2 border-gray-700"
-              >
-                <UserIcon className="h-3 inline-block" />{" "}
-                {capitalizeWords(organizer.user.first_name)}{" "}
-                {capitalizeWords(organizer.user.last_name)}
-              </Typography>
-            </div>
-            <div>
-              <Typography className="flex  gap-2 mx-2" variant="small">
-                <span className="font-extralight flex border-r-2 pr-2 border-gray-800  items-center justify-center">
-                  <ClockIcon className="h-3 inline-block mr-2" />
+              {capitalizeWords(tag.name)}
+            </span>
+          ))}
+        </Typography>
+      </div>
 
-                  {convertTo12HourFormat(time)}
-                </span>
-                <span className=" flex items-center justify-center">
-                  <CalendarDateRangeIcon className="h-3 inline-block mr-2" />
+      {/* Divider */}
+      <div className="h-1 w-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
 
-                  {formatDate(date)}
-                </span>
-              </Typography>
-            </div>
-          </div>
-          <div className="h-0.5 w-20 bg-cyan-700 my-1"></div>
-          <div className="mt-2 text-gray-700">{truncatedDescription}...</div>
-          <div className="mt-2">
-            {state?.auth?.user?.role == "organizer" || !state.auth.user ? (
-              ""
-            ) : (
-              <Button
-                size="sm"
-                color="blue"
-                className="capitalize rounded-full bg-gradient-to-r from-cyan-500 to-blue-500"
-              >
-                <Link
-                  className="text-white font-bold hover:text-white"
-                  to={`attendee/events/${id}`}
-                >
-                  See Details
-                </Link>
-              </Button>
-            )}
-          </div>
-        </ListItem>
-      </List>
-    </Card>
+      {/* Description */}
+      <Typography
+        variant="body2"
+        color="gray"
+        className="text-sm text-[#4A4A4A] leading-tight tracking-normal"
+      >
+        {truncatedDescription}...
+      </Typography>
+
+      {/* Action Button */}
+      {state?.auth?.user?.role !== "organizer" && state.auth.user && (
+        <div className="flex justify-center sm:justify-end w-full">
+          <Button
+            size="sm"
+            className="capitalize rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-white font-medium hover:shadow-md"
+          >
+            <Link
+              className="font-bold text-white hover:text-white"
+              to={`attendee/events/${id}`}
+            >
+              See Details
+            </Link>
+          </Button>
+        </div>
+      )}
+    </ListItem>
+  </List>
+</Card>
+
+
+
+
+
+
   );
 }

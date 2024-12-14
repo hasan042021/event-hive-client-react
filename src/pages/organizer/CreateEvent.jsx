@@ -91,7 +91,7 @@ export default function CreateEvent() {
       <div className="flex my-3 w-full text-start flex-col items-center justify-center">
         <form
           onSubmit={handleSubmit}
-          className="md:w-1/2 w-11/12 p-3 mx-2 my-0 shadow m-2 space-y-4 bg-white"
+          className="md:w-4/6 w-11/12 p-3 mx-2 my-0 shadow m-2 space-y-4 bg-white rounded-md"
         >
           <Input
             value={name}
@@ -99,6 +99,7 @@ export default function CreateEvent() {
             variant="outlined"
             label="Event Name"
             placeholder="Event Name"
+            
           />
 
           <Input

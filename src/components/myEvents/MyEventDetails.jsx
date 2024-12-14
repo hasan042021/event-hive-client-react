@@ -28,57 +28,54 @@ export default function MyEventDetails({ event }) {
 
   return (
     <Card className="w-full rounded my-2 shadow-xl">
-      <List className="flex flex-row items-start justify-center">
-        <div>
-          <img
-            className="flex items-center justify-center w-28 rounded border-2 h-full"
-            src={myevent.thumbnail_url}
-            variant="square"
-          />
-        </div>
+  <List className="flex flex-col  sm:flex-row items-center md:items-start justify-center space-y-4 sm:space-y-0">
+    <div className=" h-28 border-2 rounded overflow-hidden">
+      <img
+        className="flex items-center justify-center w-full rounded border-2 h-full"
+        src={myevent?.thumbnail}
+        variant="square"
+        alt="event_image"
+      />
+    </div>
 
-        <ListItem className="flex flex-col items-start">
-          <div>
-            <Typography
-              className="font-sans italic text-cyan-800"
-              variant="h5"
-              color="gray-600"
-            >
-              {capitalizeWords(myevent.name)}
-            </Typography>
-          </div>
-          <div className="flex">
-            <div>
-              <Typography
-                variant="small"
-                color="gray"
-                className="italic font-normal border-r-2 pr-2 border-gray-700"
-              >
-                <UserIcon className="size-4 inline-block mr-1 text-blue-600" />{" "}
-                {/* Keeping the original organizer info */}
-                Organized by {capitalizeWords(attendee.user.first_name)}{" "}
-                {capitalizeWords(attendee.user.last_name)}
-              </Typography>
-            </div>
-            <div>
-              <Typography className="flex gap-2 mx-2" variant="small">
-                <span className="font-extralight flex border-r-2 pr-2 border-gray-800 items-center justify-center">
-                  <ClockIcon className="size-4 inline-block mr-2 text-cyan-700" />
-                  {convertTo12HourFormat(myevent.time)}
-                </span>
-                <span className="flex items-center justify-center">
-                  <CalendarDateRangeIcon className="size-4 inline-block mr-2 text-green-600" />
-                  {formatDate(myevent.date)}
-                </span>
-              </Typography>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <MapPinIcon className="size-4 text-blue-600" />
-            {myevent.location}
-          </div>
-        </ListItem>
-      </List>
-    </Card>
+    <ListItem className="flex flex-col items-start w-full">
+      <div>
+        <Typography
+          className="font-sans italic text-cyan-800"
+          variant="h5"
+          color="gray-600"
+        >
+          {capitalizeWords(myevent.name)}
+        </Typography>
+      </div>
+      <div className="flex flex-col sm:flex-row w-full sm:items-center space-y-2 sm:space-y-0">
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <Typography
+            variant="small"
+            color="gray"
+            className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
+          >
+            <UserIcon className="size-4 inline-block mr-1 text-blue-600" /> Organized by {capitalizeWords(attendee.user.first_name)} {capitalizeWords(attendee.user.last_name)}
+          </Typography>
+          <Typography className="flex flex-col md:flex-row items-start gap-2 mx-0 md:mx-2" variant="small">
+            <span className="font-extralight flex md:border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
+              <ClockIcon className="size-4 inline-block mr-2 border-none md:text-cyan-700" />
+              {convertTo12HourFormat(myevent.time)}
+            </span>
+            <span className="flex items-center justify-center">
+              <CalendarDateRangeIcon className="size-4 inline-block mr-2 text-green-600" />
+              {formatDate(myevent.date)}
+            </span>
+          </Typography>
+        </div>
+      </div>
+      <div className="flex items-center mt-2">
+        <MapPinIcon className="size-4 text-blue-600 mr-2" />
+        {myevent.location}
+      </div>
+    </ListItem>
+  </List>
+</Card>
+
   );
 }

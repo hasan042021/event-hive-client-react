@@ -31,9 +31,9 @@ export default function OrganizersEventDetails({ event }) {
 
   return (
     <Card className="w-4/5 rounded my-2 shadow-xl">
-      <div className="flex flex-row items-center justify-between p-2">
+      <div className="flex flex-col md:flex-row items-center justify-between p-2">
         {/* Thumbnail Image */}
-        <div className="flex  justify-start items-center">
+        <div className="flex flex-col md:flex-row  justify-start items-center">
           <div className="flex items-center justify-center mr-3">
             <div className="w-28 h-28 border-2 rounded overflow-hidden">
               <img
@@ -45,8 +45,8 @@ export default function OrganizersEventDetails({ event }) {
           </div>
 
           {/* Event Details */}
-          <div className="flex flex-col items-start">
-            <div>
+          <div className="flex flex-col items-center md:items-start">
+            <div className="md:text-start text-center">
               <Typography
                 className="font-sans italic text-cyan-800"
                 variant="h5"
@@ -55,12 +55,12 @@ export default function OrganizersEventDetails({ event }) {
                 {name}
               </Typography>
             </div>
-            <div className="flex">
+            <div className="flex md:flex-row flex-col">
               <div>
                 <Typography
                   variant="small"
                   color="gray"
-                  className="italic font-normal border-r-2 pr-2 border-gray-700"
+                  className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
                 >
                   <Link
                     state={{ count: attendee_count }}
@@ -72,8 +72,8 @@ export default function OrganizersEventDetails({ event }) {
                 </Typography>
               </div>
               <div>
-                <Typography className="flex gap-2 mx-2" variant="small">
-                  <span className="font-extralight flex border-r-2 pr-2 border-gray-800 items-center justify-center">
+                <Typography className="flex flex-col md:flex-row gap-2 mx-2" variant="small">
+                  <span className="font-extralight flex border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
                     <ClockIcon className="size-4 inline-block mr-2 text-cyan-700" />
                     {convertTo12HourFormat(time)}
                   </span>

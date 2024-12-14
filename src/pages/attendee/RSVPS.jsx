@@ -30,7 +30,7 @@ const RSVPs = () => {
     <Layout>
       <div className="flex flex-col items-center justify-center">
         {data.length === 0 ? (
-          <div className="h-[100vh] flex-col flex items-center justify-center">
+          <div className="h-[100vh] flex-col  flex items-center justify-center">
             <img src={notFoundImg} className="w-80" alt="" />
             <Typography variant="h6">No Remaining RSVPS to Act</Typography>
           </div>
@@ -50,7 +50,7 @@ const RSVPs = () => {
                 className="w-full max-w-[48rem] m-2 shadow-lg rounded-lg"
               >
                 <List>
-                  <ListItem className="border flex items-center justify-between">
+                  <ListItem className="border flex flex-col md:flex-row items-center justify-between">
                     <ListItemPrefix>
                       <Avatar
                         size="xl"
@@ -58,7 +58,7 @@ const RSVPs = () => {
                         src={event.thumbnail_url}
                       />
                     </ListItemPrefix>
-                    <div className="flex-grow mx-4">
+                    <div className="md:flex-grow flex-grow-0 mx-0 md:mx-4">
                       <Typography
                         className="font-bold text-cyan-800"
                         variant="h6"
@@ -75,11 +75,11 @@ const RSVPs = () => {
                         {event.organizer.user.last_name}
                       </Typography>
                     </div>
-                    <div className="flex flex-col items-end mx-2">
-                      <Typography variant="small" color="gray">
+                    <div className="flex flex-col items-start md:items-end mx-0 md:mx-2">
+                      <Typography className="mx-0" variant="small" color="gray">
                         {convertTo12HourFormat(event.time)}
                       </Typography>
-                      <Typography variant="small" color="gray">
+                      <Typography className="mx-0" variant="small" color="gray">
                         {formatDate(event.date)}
                       </Typography>
                     </div>

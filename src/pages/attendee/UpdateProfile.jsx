@@ -117,11 +117,11 @@ export default function UpdateProfile() {
           <UpdateProfileSkeleton />
         </>
       ) : (
-        <div className="w-full flex items-center justify-center">
-          <div className="grid md:w-10/12  w-full grid-cols-1 md:grid-cols-4 p-0 gap-4 items-center bg-white my-2 rounded mb-0">
+        <div className="w-full my-2 flex items-start justify-center">
+          <div className="grid container  grid-cols-1 md:grid-cols-4 p-0 gap-4 items-center bg-white rounded mb-0">
             <div className="md:col-span-2 col-span-4">
-              <div className="flex  flex-col justify-start items-center">
-                <div>
+              <div className="flex  flex-col  items-center justify-start">
+                <div className="">
                   <img
                     className="h-60 w-60 rounded-full object-cover object-center shadow-xl shadow-blue-gray-900/50"
                     src={user?.image_url}

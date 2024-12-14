@@ -68,7 +68,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className=" w-full">
+      <div className="w-full container mx-auto">
         <div>
           <button
             className="z-50 fixed top-1/2 left-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-r-full shadow-md hover:bg-blue-600"
@@ -106,7 +106,7 @@ export default function Home() {
           </Drawer>
         </div>
 
-        <div className="md:col-span-6 col-span-9">
+        <div className="col-span-1">
           {filteredLoading || eventsLoading ? (
             <EventsSkeleton /> // Display skeleton while events are loading
           ) : isFilterSuccess ? (

@@ -51,14 +51,14 @@ export default function Attendees() {
               Attendees of the event
             </Typography>
             <hr />
-            <List>
+            <List >
               {rsvps?.map((r, idx) => (
-                <ListItem key={idx}>
+                <ListItem className="flex md:flex-row flex-col" key={idx}>
                   <ListItemPrefix>
                     <Avatar
                       variant="circular"
                       alt="candice"
-                      src={r?.attendee.image}
+                      src={r?.attendee.image_url}
                     />
                   </ListItemPrefix>
                   <div>

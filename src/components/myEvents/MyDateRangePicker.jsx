@@ -36,9 +36,9 @@ const MyDateRangePicker = ({ onDateRangeChange }) => {
   };
 
   return (
-    <div className="font-serif flex items-center space-x-4 mt-2">
+    <div className="font-serif  flex items-center space-x-4 mt-2">
       {/* Date Range Input and Calendar Button */}
-      <div className="relative flex items-center space-x-2">
+      <div className="flex flex-col gap-1 md:flex-row items-center  space-x-2">
         <input
           className="w-60 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none font-sans"
           value={

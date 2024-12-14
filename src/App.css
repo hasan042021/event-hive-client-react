@@ -1,12 +1,16 @@
 #root {
-  width: 100vw !important;
-  overflow-x: hidden;
+  
   margin: 0 auto;
-  /* padding: 2rem; */
+
   text-align: center;
+  width: 100%;
+  overflow-x: hidden;
 }
 body {
   font-family: sans-serif;
   background-color: aliceblue;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 /* Inter, system-ui, Avenir, */

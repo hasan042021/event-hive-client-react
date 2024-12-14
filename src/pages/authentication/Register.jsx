@@ -60,7 +60,7 @@ export default function Register() {
       toast.error("A User With that username already exists");
   }, [isError, isSuccess]);
   return (
-    <div className="flex flex-col justify-center w-full items-center  bg-gray-100">
+    <div className="flex my-2 flex-col justify-center w-full items-center  bg-gray-100">
       <div className="w-full max-w-md p-4  bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center mb-4">Register</h1>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
