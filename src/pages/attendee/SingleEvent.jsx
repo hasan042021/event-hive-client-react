@@ -86,136 +86,143 @@ export default function SingleEvent() {
 
   return (
     <Layout>
-  {isLoading ? (
-    <SingleEventSkeleton />
-  ) : (
-    <div className="flex flex-col items-center justify-start p-2">
-      <Card className="w-full max-w-[48rem] flex flex-col md:flex-row m-2 border-2">
-        <CardHeader
-          shadow={false}
-          floated={false}
-          className="m-0 w-full md:w-2/5 shrink-0 rounded-t md:rounded-r-none md:rounded-t-none"
-        >
-          <img
-            src={event?.thumbnail_url}
-            alt="card-image"
-            className="h-full w-full object-cover"
-          />
-        </CardHeader>
-        <CardBody className="text-start p-4 flex-1">
-          <Typography
-            variant="h4"
-            color="blue-gray"
-            className="mb-2 capitalize text-center md:text-left"
-          >
-            {event?.name}
-          </Typography>
-          <Typography
-            variant="h6"
-            color="gray"
-            className="mb-2 capitalize text-center md:text-left"
-          >
-            Organized by {event?.organizer.user.first_name} {event?.organizer.user.last_name}
-          </Typography>
-          <div className="flex flex-col md:flex-row md:gap-4 items-center md:items-start">
-            <Typography className="flex gap-2 items-center mb-2 md:mb-0" variant="h6">
-              <span className="flex items-center gap-2">
-                <ClockIcon className="h-4 text-cyan-700" />
-                {convertTo12HourFormat(event?.time)}
-              </span>
-            </Typography>
-            <Typography className="flex gap-2 items-center" variant="h6">
-              <span className="flex items-center gap-2">
-                <CalendarDateRangeIcon className="h-4 text-green-600" />
-                {formatDate(event?.CurRsvpdate)}
-              </span>
-            </Typography>
-          </div>
-          <Typography className="flex items-center gap-2 mt-2" variant="h6">
-            <MapIcon className="h-4 text-blue-600" /> {event?.location}
-          </Typography>
-          <Typography color="gray" className="font-normal my-2">
-            <span className="bg-teal-600 rounded p-1 text-white">
-              {event?.category?.name}
-            </span>
-          </Typography>
-          <Typography className="flex flex-wrap gap-2">
-            {event?.tags?.map((tag) => (
-              <Chip
-                key={tag.id}
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
-                value={tag?.name}
+      {isLoading ? (
+        <SingleEventSkeleton />
+      ) : (
+        <div className="flex flex-col items-center justify-start p-2 ">
+          <Card className="w-full max-w-[48rem] flex flex-col md:flex-row m-2 border-2 bg-opacity-70 backdrop-blur-md bg-white/50 shadow-lg hover:shadow-xl transition-shadow rounded-lg overflow-hidden">
+            <CardHeader
+              shadow={false}
+              floated={false}
+              className="m-0 w-full md:w-2/5 shrink-0 rounded-t md:rounded-r-none md:rounded-t-none overflow-hidden"
+            >
+              <img
+                src={event?.thumbnail_url}
+                alt="card-image"
+                className="h-full w-full object-cover"
               />
-            ))}
-          </Typography>
-          <div className="my-4">
-            {!found ? (
-              <div className="flex items-center justify-center gap-5">
+            </CardHeader>
+            <CardBody className="text-start p-6 flex-1">
+              <Typography
+                variant="h4"
+                color="blue-gray"
+                className="mb-4 capitalize text-center md:text-left font-bold text-blue-800"
+              >
+                {event?.name}
+              </Typography>
+              <Typography
+                variant="h6"
+                color="gray"
+                className="mb-4 capitalize text-center md:text-left text-blue-gray-600"
+              >
+                Organized by {event?.organizer.user.first_name}{" "}
+                {event?.organizer.user.last_name}
+              </Typography>
+              <div className="flex flex-col md:flex-row md:gap-6 items-center md:items-start mb-4">
                 <Typography
-                  variant="small"
-                  className="flex items-center gap-2 cursor-pointer"
-                  color="blue-gray"
-                  onClick={handleAccept}
+                  className="flex gap-2 items-center mb-2 md:mb-0 text-blue-gray-700"
+                  variant="h6"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="green"
-                    className="h-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Accept
+                  <span className="flex items-center gap-2">
+                    <ClockIcon className="h-5 text-cyan-700" />
+                    {convertTo12HourFormat(event?.time)}
+                  </span>
                 </Typography>
                 <Typography
-                  className="flex items-center gap-2 cursor-pointer"
-                  variant="small"
-                  color="gray"
-                  onClick={handleCancel}
+                  className="flex gap-2 items-center text-blue-gray-700"
+                  variant="h6"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="red"
-                    className="h-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Decline
+                  <span className="flex items-center gap-2">
+                    <CalendarDateRangeIcon className="h-5 text-green-600" />
+                    {formatDate(event?.CurRsvpdate)}
+                  </span>
                 </Typography>
               </div>
-            ) : (
-              <div className="bg-deep-orange-100 p-1 rounded text-black italic font-sans">
-                {status}
+              <Typography
+                className="flex items-center gap-2 mt-2 text-blue-gray-700"
+                variant="h6"
+              >
+                <MapIcon className="h-5 text-blue-600" /> {event?.location}
+              </Typography>
+              <Typography color="gray" className="font-normal my-2">
+                <span className="bg-teal-600 rounded-full px-2 p-1 text-white ">
+                  {event?.category?.name}
+                </span>
+              </Typography>
+              <Typography className="flex flex-wrap gap-2">
+                {event?.tags?.map((tag) => (
+                  <Chip
+                    key={tag.id}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full px-3 py-1 shadow-sm"
+                    value={tag?.name}
+                  />
+                ))}
+              </Typography>
+              <div className="my-6">
+                {!found ? (
+                  <div className="flex items-center justify-center gap-6">
+                    <Typography
+                      variant="small"
+                      className="flex items-center gap-2 cursor-pointer bg-green-500 text-white px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all"
+                      onClick={handleAccept}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="white"
+                        className="h-5"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Accept
+                    </Typography>
+                    <Typography
+                      className="flex items-center gap-2 cursor-pointer bg-red-500 text-white px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all"
+                      variant="small"
+                      onClick={handleCancel}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="white"
+                        className="h-5"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Decline
+                    </Typography>
+                  </div>
+                ) : (
+                  <div className="bg-deep-orange-100 p-3 rounded text-black italic font-sans text-center">
+                    {status}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </CardBody>
-      </Card>
-      <Card className="border-2 w-full max-w-[48rem] p-5 m-2 shadow-xl">
-        <Typography
-          variant="h6"
-          color="gray"
-          className="font-normal flex items-center gap-2"
-        >
-          <DocumentTextIcon className="h-6" /> Description
-        </Typography>
-        <div className="h-0.5 w-28 bg-teal-800 my-2"></div>
-        <Typography color="gray" className="font-normal text-start">
-          {event?.description}
-        </Typography>
-      </Card>
-    </div>
-  )}
-</Layout>
-
+            </CardBody>
+          </Card>
+          <Card className="border-2 w-full max-w-[48rem] p-6 m-2 shadow-lg hover:shadow-xl bg-opacity-70 backdrop-blur-md bg-white/50 rounded-lg">
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              className="font-semibold flex items-center gap-2"
+            >
+              <DocumentTextIcon className="h-6 text-blue-700" /> Description
+            </Typography>
+            <div className="h-0.5 w-28 bg-teal-800 my-2"></div>
+            <Typography color="gray" className="font-normal text-start">
+              {event?.description}
+            </Typography>
+          </Card>
+        </div>
+      )}
+    </Layout>
   );
 }

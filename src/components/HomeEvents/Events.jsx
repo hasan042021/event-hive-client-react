@@ -11,7 +11,7 @@ export default function Events({ events }) {
   return (
     <>
       {events?.length == 0 ? (
-        <div className="h-[100vh] flex-col flex items-center justify-center">
+        <div className="h-[100vh] flex-wrap flex items-center justify-center">
           <img src={notFoundImg} className="w-80" alt="" />
           <Typography variant="h6">No Data Found</Typography>
         </div>

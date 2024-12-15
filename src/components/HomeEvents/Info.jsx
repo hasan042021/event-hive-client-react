@@ -5,9 +5,11 @@ const Info = () => {
   return (
     <div className="flex items-center justify-center">
       <Chip
-        className="shadow-xl"
+        className="bg-white/20 backdrop-blur-sm text-blue-500 border border-blue-300  
+                transition-all duration-300 ease-in-out p-2 px-4 rounded-lg shadow-md
+               shadow-blue-500/50"
         variant="ghost"
-        value="Choose tags and cetegories"
+        value="Choose tags and categories"
       />
     </div>
   );
