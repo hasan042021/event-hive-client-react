@@ -38,7 +38,7 @@ const RSVPs = () => {
           <>
             <Card
               style={{ backgroundColor: "rgb(11,161,233)" }}
-              className="p-2  text-white rounded mt-2 w-96"
+              className="p-2  text-white rounded mt-2 "
             >
               <Typography variant="h6">
                 RSVP Requests You Have Not Acted On Yet
