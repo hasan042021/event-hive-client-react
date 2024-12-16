@@ -8,6 +8,7 @@ import save from "../../assets/images/save.png";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
+  Avatar,
   Button,
   Card,
   CardBody,
@@ -55,6 +56,7 @@ export default function UpdateProfile() {
   const [freq, setFreq] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     if (id) setNow(true);
@@ -117,144 +119,199 @@ export default function UpdateProfile() {
           <UpdateProfileSkeleton />
         </>
       ) : (
-        <div className="w-full my-2 flex items-start justify-center">
-          <div className="grid container  grid-cols-1 md:grid-cols-4 p-0 gap-4 items-center bg-white rounded mb-0">
-            <div className="md:col-span-2 col-span-4">
-              <div className="flex  flex-col  items-center justify-start">
-                <div className="">
-                  <img
-                    className="h-60 w-60 rounded-full object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                    src={user?.image_url}
-                    alt="profile image"
-                  />
-                </div>
-                <CardBody>
-                  <Typography variant="h4" color="blue-gray" className="mb-2">
-                    {capitalizeFirstLetter(user?.user.first_name)}{" "}
-                    {capitalizeFirstLetter(user?.user.last_name)}
-                  </Typography>
-                  <Typography
-                    color="blue-gray"
-                    className="font-medium"
-                    textGradient
-                  >
-                    {user?.role ? makeUppercase(user?.role) : ""}
-                  </Typography>
-                </CardBody>
-                <form onSubmit={handleProfilePictureUpload}>
-                  <ImageUpload
-                    selectedImage={selectedImage}
-                    setSelectedImage={setSelectedImage}
-                    setProfilePicture={setProfilePicture}
-                  />
-                  <div className="flex justify-center items-center ">
-                    {profilePicture && (
-                      <Button color="blue" type="submit" className="px-3 py-2">
-                        <div className="flex w-full justify-center items-center">
-                          <img className="h-6 w-6" src={save} alt="" />
-                          <p>Save</p>
+        <div className="container mx-auto px-4 py-8">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+            <div className="md:flex">
+              <div className="md:w-1/2 p-8 bg-gradient-to-br from-blue-500 to-purple-600">
+                <div className="text-center">
+                  <div className="relative text-center">
+                    {/* Profile Image */}
+                    <img
+                      src={
+                        selectedImage ||
+                        user?.image_url ||
+                        "https://via.placeholder.com/150"
+                      }
+                      alt="Profile"
+                      className="md:w-44 h-28 w-28 md:h-44 rounded-full border-4 border-white shadow-lg mx-auto mb-4 cursor-pointer"
+                      onClick={() => setIsPopupOpen(true)}
+                    />
+
+                    {/* Magnifier Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 text-white bg-black bg-opacity-50 p-1 rounded-full shadow-md"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="16" y1="16" x2="22" y2="22" />
+                      </svg>
+                    </div>
+
+                    {/* Popup */}
+                    {isPopupOpen && (
+                      <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"
+                        onClick={() => setIsPopupOpen(false)} // Close on background click
+                      >
+                        <div className="relative">
+                          <img
+                            src={
+                              selectedImage ||
+                              user?.image_url ||
+                              "https://via.placeholder.com/150"
+                            }
+                            alt="Expanded Profile"
+                            className="max-w-full max-h-screen rounded-lg shadow-lg"
+                          />
+                          <button
+                            className="absolute top-2 right-2 bg-white rounded-full text-black bg-opacity-50 p-2 "
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent closing on button click
+                              setIsPopupOpen(false);
+                            }}
+                          >
+                            ✕
+                          </button>
                         </div>
-                      </Button>
+                      </div>
                     )}
                   </div>
+                  <h2 className="text-2xl font-bold text-white mb-1">
+                    {capitalizeFirstLetter(user?.user.first_name)}{" "}
+                    {capitalizeFirstLetter(user?.user.last_name)}
+                  </h2>
+                  <p className="text-blue-100 font-medium">
+                    {user?.role ? makeUppercase(user?.role) : ""}
+                  </p>
+                </div>
+
+                <form onSubmit={handleProfilePictureUpload} className="mt-8">
+                  <ImageUpload
+                    setProfilePicture={setProfilePicture}
+                    selectedImage={selectedImage}
+                    setSelectedImage={setSelectedImage}
+                  />
+                  {profilePicture && (
+                    <button
+                      type="submit"
+                      className="mt-4 w-full bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-50 transition duration-300 ease-in-out"
+                    >
+                      Save Picture
+                    </button>
+                  )}
                 </form>
               </div>
-            </div>
-            <div className="flex md:col-span-2 col-span-4 flex-2 my-3 flex-col items-center justify-center">
-              <form
-                onSubmit={handleSubmit}
-                className="p-1 pr-3 w-full m-2 space-y-4"
-              >
-                <Typography className="text-start  flex justify-end  items-center font-bold">
-                  Update Info
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="size-5"
-                  >
-                    <path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z" />
-                    <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
-                  </svg>
-                </Typography>
-                <Input
-                  value={first_name}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  variant="static"
-                  label="first_name"
-                  placeholder="type your name"
-                />
-
-                <Input
-                  variant="static"
-                  label="last_name"
-                  placeholder="type your name"
-                  value={last_name}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-                <Input
-                  type="text"
-                  variant="static"
-                  label="email"
-                  placeholder="type your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <hr />
-                <Typography className="text-start items-center  flex justify-end  font-bold">
-                  Settings
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.84 1.804A1 1 0 0 1 8.82 1h2.36a1 1 0 0 1 .98.804l.331 1.652a6.993 6.993 0 0 1 1.929 1.115l1.598-.54a1 1 0 0 1 1.186.447l1.18 2.044a1 1 0 0 1-.205 1.251l-1.267 1.113a7.047 7.047 0 0 1 0 2.228l1.267 1.113a1 1 0 0 1 .206 1.25l-1.18 2.045a1 1 0 0 1-1.187.447l-1.598-.54a6.993 6.993 0 0 1-1.929 1.115l-.33 1.652a1 1 0 0 1-.98.804H8.82a1 1 0 0 1-.98-.804l-.331-1.652a6.993 6.993 0 0 1-1.929-1.115l-1.598.54a1 1 0 0 1-1.186-.447l-1.18-2.044a1 1 0 0 1 .205-1.251l1.267-1.114a7.05 7.05 0 0 1 0-2.227L1.821 7.773a1 1 0 0 1-.206-1.25l1.18-2.045a1 1 0 0 1 1.187-.447l1.598.54A6.992 6.992 0 0 1 7.51 3.456l.33-1.652ZM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                      clipRule="evenodd"
+              <div className="md:w-1/2 p-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                  Update Profile
+                </h3>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="firstName"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      First Name
+                    </label>
+                    <input
+                      id="firstName"
+                      type="text"
+                      value={first_name}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                  </svg>
-                </Typography>
-                <Select
-                  size="md"
-                  label="Select Version"
-                  className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  value={freq}
-                  onChange={(e) => setFreq(e)}
-                >
-                  {FREQUENCY?.map((tag) => (
-                    <Option key={tag.id} value={tag.id}>
-                      {tag.name}
-                    </Option>
-                  ))}
-                </Select>
-                <div>
-                  <Checkbox
-                    checked={notification}
-                    onChange={(e) => setNotification(e.target.checked)}
-                    ripple={false}
-                    label="Email Notifications"
-                    className="block"
-                  />
-                </div>
-                <div>
-                  <Checkbox
-                    checked={in_app}
-                    onChange={(e) => setInApp(e.target.checked)}
-                    label="In-App Notifications"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="rounded"
-                  className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
-                >
-                  Update
-                </Button>
-              </form>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="lastName"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Last Name
+                    </label>
+                    <input
+                      id="lastName"
+                      type="text"
+                      value={last_name}
+                      onChange={(e) => setLastName(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="frequency"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Update Frequency
+                    </label>
+                    <select
+                      id="frequency"
+                      value={freq}
+                      onChange={(e) => setFreq(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      {FREQUENCY?.map((tag) => (
+                        <option key={tag.id} value={tag.id}>
+                          {tag.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-700">
+                      Email Notifications
+                    </span>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={notification}
+                        onChange={(e) => setNotification(e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-700">
+                      In-App Notifications
+                    </span>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={in_app}
+                        onChange={(e) => setInApp(e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out"
+                  >
+                    Update Profile
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

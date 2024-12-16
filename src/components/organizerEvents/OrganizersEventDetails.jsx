@@ -7,6 +7,8 @@ import {
   Card,
   Typography,
   Button,
+  CardBody,
+  Chip,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import {
@@ -18,6 +20,9 @@ import {
   UserIcon,
   CalendarDateRangeIcon,
   ClockIcon,
+  CalendarIcon,
+  PencilIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 
 export default function OrganizersEventDetails({ event }) {
@@ -30,93 +35,74 @@ export default function OrganizersEventDetails({ event }) {
   };
 
   return (
-    <Card className="w-4/5 rounded my-2 shadow-xl">
-      <div className="flex flex-col md:flex-row items-center justify-between p-2">
-        {/* Thumbnail Image */}
-        <div className="flex flex-col md:flex-row  justify-start items-center">
-          <div className="flex items-center justify-center mr-3">
-            <div className="w-28 h-28 border-2 rounded overflow-hidden">
+    <div className="container md:w-5/6">
+      <Card className=" container max-w-4xl mx-auto my-4 overflow-hidden">
+        <CardBody className="p-0">
+          <div className="flex flex-col md:flex-row">
+            {/* Thumbnail */}
+            <div className="md:w-1/3 h-48 md:h-auto relative overflow-hidden">
               <img
-                className=" object-cover w-full h-full rounded "
+                className="absolute inset-0 w-full h-full object-cover"
                 src={thumbnail_url}
                 alt={name}
               />
-            </div>
-          </div>
-
-          {/* Event Details */}
-          <div className="flex flex-col items-center md:items-start">
-            <div className="md:text-start text-center">
-              <Typography
-                className="font-sans italic text-cyan-800"
-                variant="h5"
-                color="gray-600"
-              >
-                {name}
-              </Typography>
-            </div>
-            <div className="flex md:flex-row flex-col">
-              <div>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
-                >
-                  <Link
-                    state={{ count: attendee_count }}
-                    to={`/organizer/attendees/${id}`}
-                  >
-                    <UserIcon className="size-4 inline-block mr-1 text-blue-600" />
-                    Total Attendees: {attendee_count}
-                  </Link>{" "}
-                </Typography>
-              </div>
-              <div>
-                <Typography className="flex flex-col md:flex-row gap-2 mx-2" variant="small">
-                  <span className="font-extralight flex border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
-                    <ClockIcon className="size-4 inline-block mr-2 text-cyan-700" />
-                    {convertTo12HourFormat(time)}
-                  </span>
-                  <span className="flex items-center justify-center">
-                    <CalendarDateRangeIcon className="size-4 inline-block mr-2 text-green-600" />
-                    {formatDate(date)}
-                  </span>
-                </Typography>
-              </div>
-            </div>
-            <div>
-              <Typography className="text-start" variant="small">
-                {description.split(" ").slice(0, 10).join(" ")}...
-              </Typography>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-col items-center justify-between mt-2">
-            <Button
-              size="sm"
-              variant="outlined"
-              className="capitalize rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 m-1"
-            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <Link
-                className="text-blue-600 hover:text-blue-700"
-                to={`/organizer/update-event/${id}`}
+                state={{ count: attendee_count }}
+                to={`/organizer/attendees/${id}`}
               >
-                Update Event
+                <Chip
+                  value={`${attendee_count} Attendees`}
+                  className="absolute bottom-2 left-2 bg-white/80 backdrop-blur-sm"
+                  icon={<UserIcon className="h-4 w-4" />}
+                ></Chip>
               </Link>
-            </Button>
-            <Button
-              size="sm"
-              color="red"
-              className="capitalize rounded-full text-white bg-red-600 hover:bg-red-700 m-1"
-              onClick={(e) => handleDelete(e, id)}
-            >
-              Delete Event
-            </Button>
+            </div>
+
+            {/* Event Details */}
+            <div className="md:w-2/3 p-6 flex flex-col justify-between">
+              <div>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  {name}
+                </Typography>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Chip
+                    value={convertTo12HourFormat(time)}
+                    className="bg-blue-gray-50 text-blue-gray-700"
+                    icon={<ClockIcon className="h-4 w-4" />}
+                  />
+                  <Chip
+                    value={formatDate(date)}
+                    className="bg-blue-gray-50 text-blue-gray-700"
+                    icon={<CalendarIcon className="h-4 w-4" />}
+                  />
+                </div>
+                <Typography variant="paragraph" color="gray" className="mb-4">
+                  {description.split(" ").slice(0, 15).join(" ")}...
+                </Typography>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                <Button size="sm" variant="outlined" color="blue">
+                  <Link
+                    className="flex items-center gap-2"
+                    to={`/organizer/update-event/${id}`}
+                  >
+                    <PencilIcon className="h-4 w-4" /> Update Event
+                  </Link>
+                </Button>
+                <Button
+                  size="sm"
+                  color="red"
+                  className="flex items-center gap-2"
+                  onClick={(e) => handleDelete(e, id)}
+                >
+                  <TrashIcon className="h-4 w-4" /> Delete Event
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {/* Buttons as another ListItem */}
-    </Card>
+        </CardBody>
+      </Card>
+    </div>
   );
 }

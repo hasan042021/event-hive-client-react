@@ -115,142 +115,197 @@ export default function UpdateEvent() {
   };
   return (
     <Layout>
-      <div className="flex my-3 flex-col items-center justify-center">
-        <Card className="p-3">
-          <form className="my-2" onSubmit={handleThumbnailUpload}>
-            <ImageUpload
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-              setProfilePicture={setProfilePicture}
-            />
-            <div className="flex justify-center items-center ">
-              {profilePicture && (
-                <Button
-                  variant="outlined"
-                  color="blue"
-                  type="submit"
-                  className="px-3 py-2"
-                >
-                  <div className="flex w-full justify-center items-center">
-                    <img className="h-6 w-6" src={save} alt="" />
-                    <p>Save</p>
-                  </div>
-                </Button>
-              )}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="md:flex">
+            <div className="md:w-1/3 p-8 bg-gradient-to-br from-blue-500 to-purple-600">
+              <Typography variant="h4" color="white" className="mb-6">
+                Event Details
+              </Typography>
+              <Card className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
+                {!profilePicture && (
+                  <img
+                    className="h-40 w-full object-cover rounded-lg mb-2"
+                    src={thumbnailUrl}
+                    alt="Event thumbnail"
+                  />
+                )}
+                <form onSubmit={handleThumbnailUpload} className="space-y-4">
+                  <ImageUpload
+                    selectedImage={selectedImage}
+                    setSelectedImage={setSelectedImage}
+                    setProfilePicture={setProfilePicture}
+                  />
+                  {profilePicture && (
+                    <Button
+                      variant="outlined"
+                      color="white"
+                      type="submit"
+                      className="w-full flex items-center justify-center space-x-2"
+                    >
+                      <img className="h-5 w-5" src={save} alt="" />
+                      <span className="text-blue">Save</span>
+                    </Button>
+                  )}
+                </form>
+              </Card>
             </div>
-          </form>
-          {!profilePicture && (
-            <img
-              className="h-40 w-full border-2 border-blue rounded"
-              src={thumbnailUrl}
-            />
-          )}
-        </Card>
-        <form
-          onSubmit={handleSubmit}
-          className="md:w-1/2 w-full p-3 bg-white rounded-lg shadow m-2 space-y-4 text-start"
-        >
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            variant="outlined"
-            label="Event Name"
-            placeholder="Event Name"
-          />
+            <div className="md:w-2/3 p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Event Name
+                  </label>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    variant="outlined"
+                    placeholder="Enter event name"
+                    className="w-full"
+                  />
+                </div>
 
-          <Input
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            variant="outlined"
-            label="Date"
-            type="date"
-            placeholder="Date"
-          />
-          <Input
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            variant="outlined"
-            label="Time"
-            placeholder="Time"
-            type="time"
-          />
-          <Input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            variant="outlined"
-            label="Location"
-            placeholder="Location"
-          />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="date"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Date
+                    </label>
+                    <Input
+                      id="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      variant="outlined"
+                      type="date"
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="time"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Time
+                    </label>
+                    <Input
+                      id="time"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                      variant="outlined"
+                      type="time"
+                      className="w-full"
+                    />
+                  </div>
+                </div>
 
-          <Textarea
-            variant="outlined"
-            label="Description"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <div className="flex flex-col">
-            <label htmlFor="category" className="text-gray-700 font-bold">
-              <Typography variant="h6">Category</Typography>
-            </label>
-            <select
-              htmlFor="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="border font-sans rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            >
-              {categories?.map((cat) => {
-                return (
-                  <option className="font-sans" key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                );
-              })}
-            </select>
+                <div>
+                  <label
+                    htmlFor="location"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Location
+                  </label>
+                  <Input
+                    id="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    variant="outlined"
+                    placeholder="Enter location"
+                    className="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="description"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Description
+                  </label>
+                  <Textarea
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    variant="outlined"
+                    placeholder="Enter event description"
+                    className="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="category"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Category
+                  </label>
+                  <select
+                    id="category"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  >
+                    {categories?.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="tags"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Tags
+                  </label>
+                  <select
+                    id="tags"
+                    multiple
+                    value={tags}
+                    onChange={handleTagChange}
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 h-32"
+                  >
+                    {allTags?.map((tag) => (
+                      <option key={tag.id} value={tag.id}>
+                        {tag.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex items-center">
+                  <Checkbox
+                    id="isPublic"
+                    checked={isPublic}
+                    onChange={(e) => setIsPublic(e.target.checked)}
+                    color="blue"
+                  />
+                  <label
+                    htmlFor="isPublic"
+                    className="ml-2 block text-sm text-gray-900"
+                  >
+                    Make this event public
+                  </label>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                >
+                  Update Event
+                </Button>
+              </form>
+            </div>
           </div>
-
-          {/* Tags Input (assuming a multiple-select or tag input) */}
-          <div className="flex flex-col">
-            <label htmlFor="tags" className="text-gray-700 font-bold">
-              <Typography variant="h6"> Tags</Typography>
-            </label>
-            <select
-              id="tags"
-              className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 border rounded bg-gray-50 overflow-y-scroll [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:bg-gray-200
-  [&::-webkit-scrollbar-thumb]:bg-blue-600
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full"
-              multiple
-              value={tags}
-              onChange={handleTagChange}
-            >
-              {allTags?.map((tag) => (
-                <option key={tag.id} value={tag.id} className="font-sans">
-                  {tag.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Is Public Checkbox */}
-
-          <div>
-            <Checkbox
-              checked={isPublic}
-              onChange={(e) => setIsPublic(e.target.checked)}
-              label={<Typography variant="h6">Is Public</Typography>}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
-          >
-            Update Event
-          </Button>
-        </form>
+        </div>
       </div>
     </Layout>
   );

@@ -1,3 +1,4 @@
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Avatar, IconButton, Typography } from "@material-tailwind/react";
 import { useRef, useState } from "react";
 
@@ -36,56 +37,63 @@ export default function ImageUpload({
   }
 
   return (
-    <div>
-      {selectedImage && (
-        <div className="p-3 image-preview relative">
+    <div className="w-full">
+      {selectedImage ? (
+        <div className="relative mb-4">
           <img
-            className="h-40 w-full rounded object-cover object-center shadow-xl shadow-blue-gray-900/50"
+            className="w-full h-48 object-cover rounded-lg shadow-md"
             src={selectedImage}
             alt="Selected image"
           />
           <button
-            className="absolute border-black top-0 right-0 p-2 bg-black-200 rounded-full hover:bg-gray-300"
+            className="absolute top-2 right-2 bg-white p-1 rounded-full shadow-md hover:bg-gray-100 transition duration-300 ease-in-out"
             onClick={handleCancel}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
+              className="h-5 w-5 text-gray-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18 18 6M6 6l12 12"
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
             </svg>
           </button>
         </div>
+      ) : (
+        <div
+          className="mb-4 flex items-center justify-center w-full h-48 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out"
+          onClick={handleButtonClick}
+        >
+          <div className="text-center">
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 48 48"
+              aria-hidden="true"
+            >
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p className="mt-1 text-sm text-gray-600">Click to upload image</p>
+          </div>
+        </div>
       )}
-      <div className="flex items-center justify-center">
-        <IconButton color="blue" onClick={handleButtonClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-        </IconButton>
-        <Typography color="black"> Click The Icon To Upload Image</Typography>
-      </div>
-
-      <input ref={inputRef} type="file" hidden onChange={handleFileUpload} />
+      <input
+        ref={inputRef}
+        type="file"
+        hidden
+        onChange={handleFileUpload}
+        accept="image/*"
+      />
     </div>
   );
 }

@@ -13,6 +13,9 @@ import {
   Typography,
   Input,
   Button,
+  Card,
+  CardBody,
+  CardFooter,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 
@@ -88,119 +91,166 @@ export default function CreateEvent() {
 
   return (
     <Layout>
-      <div className="flex my-3 w-full text-start flex-col items-center justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="md:w-4/6 w-11/12 p-3 mx-2 my-0 shadow m-2 space-y-4 bg-white rounded-md"
-        >
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            variant="outlined"
-            label="Event Name"
-            placeholder="Event Name"
-            
-          />
+      <div className="flex my-3 w-full justify-center">
+        <Card className="max-w-4xl">
+          <CardBody>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <Typography variant="h4" color="blue-gray" className="mb-6">
+                Create New Event
+              </Typography>
 
-          <Input
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            variant="outlined"
-            label="Date"
-            type="date"
-            placeholder="Date"
-          />
-          <Input
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            variant="outlined"
-            label="Time"
-            placeholder="Time"
-            type="time"
-          />
-          <Input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            variant="outlined"
-            label="Location"
-            placeholder="Location"
-          />
-          <Input
-            variant="outlined"
-            label="Thumbnail"
-            placeholder="Thubmnail"
-            onChange={(e) => setThumbnail(e.target.files[0])}
-            type="file"
-          />
-          <Textarea
-            variant="outlined"
-            label="Description"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <div className="flex flex-col">
-            <label htmlFor="category" className="text-gray-700 font-bold">
-              <Typography variant="h6">Category</Typography>
-            </label>
-            <select
-              htmlFor="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="border font-sans rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              <div className="space-y-4">
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  variant="outlined"
+                  label="Event Name"
+                  placeholder="Enter event name"
+                  className="w-full"
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Input
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    variant="outlined"
+                    label="Date"
+                    type="date"
+                    placeholder="Select date"
+                  />
+                  <Input
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    variant="outlined"
+                    label="Time"
+                    type="time"
+                    placeholder="Select time"
+                  />
+                </div>
+
+                <Input
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  variant="outlined"
+                  label="Location"
+                  placeholder="Enter location"
+                />
+
+                <div className="relative">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-2 font-medium"
+                  >
+                    Thumbnail
+                  </Typography>
+                  <Input
+                    variant="outlined"
+                    label="Thumbnail"
+                    placeholder="Choose file"
+                    onChange={(e) => setThumbnail(e.target.files[0])}
+                    type="file"
+                    className="hidden"
+                    id="thumbnail-upload"
+                  />
+                  <label
+                    htmlFor="thumbnail-upload"
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    Choose Thumbnail
+                  </label>
+                </div>
+
+                <Textarea
+                  variant="outlined"
+                  label="Description"
+                  placeholder="Enter event description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={4}
+                />
+
+                <div>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-2 font-medium"
+                  >
+                    Category
+                  </Typography>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {categories?.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-2 font-medium"
+                  >
+                    Tags
+                  </Typography>
+                  <select
+                    multiple
+                    value={tags}
+                    onChange={handleTagChange}
+                    className="w-full px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                  >
+                    {allTags?.map((tag) => (
+                      <option key={tag.id} value={tag.id}>
+                        {tag.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex items-center">
+                  <Checkbox
+                    checked={isPublic}
+                    onChange={(e) => setIsPublic(e.target.checked)}
+                    color="blue"
+                    className="h-5 w-5"
+                  />
+                  <Typography color="gray" className="ml-2 font-medium">
+                    Make this event public
+                  </Typography>
+                </div>
+              </div>
+            </form>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button
+              type="submit"
+              onClick={handleSubmit}
+              className="w-full bg-blue-500 hover:bg-blue-700 transition-colors duration-300"
             >
-              {categories?.map((cat) => {
-                return (
-                  <option className="font-sans" key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-          {/* Tags Input (assuming a multiple-select or tag input) */}
-          <div className="flex flex-col">
-            <label htmlFor="tags" className="text-gray-700  font-bold">
-              <Typography variant="h6"> Tags</Typography>
-            </label>
-            <select
-              id="tags"
-              className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 border rounded bg-gray-50 overflow-y-scroll [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:bg-gray-200
-  [&::-webkit-scrollbar-thumb]:bg-blue-600
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full"
-              multiple
-              value={tags}
-              onChange={handleTagChange}
-            >
-              {allTags?.map((tag) => (
-                <option key={tag.id} value={tag.id} className="font-sans">
-                  {tag.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Is Public Checkbox */}
-
-          <div>
-            <Checkbox
-              checked={isPublic}
-              onChange={(e) => setIsPublic(e.target.checked)}
-              label={<Typography variant="h6">Is Public</Typography>}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
-          >
-            Create Event
-          </Button>
-        </form>
+              Create Event
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     </Layout>
   );
