@@ -28,7 +28,7 @@ export default function MyEventDetails({ event }) {
   console.log(event);
 
   return (
-    <div className=" md:w-4/6 ">
+    <div className=" md:w-4/6 mx-2">
       <Card className=" container  max-w-4xl my-2 overflow-hidden">
         <CardBody className="p-0">
           <div className="flex flex-col md:flex-row">
@@ -41,7 +41,7 @@ export default function MyEventDetails({ event }) {
                 className="inset-0 w-full h-full object-cover"
               />
             </div>
-            <div className="md:w-2/3 p-6 flex flex-col justify-between">
+            <div className="md:w-2/3 p-4 pt-2 md:pt-6 md:p-6 flex flex-col justify-between">
               <div className="flex flex-col items-start w-full">
                 {/* Event Name */}
                 <Typography variant="h4" color="blue-gray" className="mb-2">
@@ -55,11 +55,15 @@ export default function MyEventDetails({ event }) {
                   <Typography
                     variant="small"
                     color="gray"
-                    className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
+                    className="italic font-normal text-start border-r-2 pr-2 border-none md:border-gray-700 "
                   >
-                    <UserIcon className="h-5 w-5 inline-block mr-1 text-blue-600" />
-                    Organized by {capitalizeWords(attendee.user.first_name)}{" "}
-                    {capitalizeWords(attendee.user.last_name)}
+                    <UserIcon className="h-5 w-5 inline-block mr-1 " />
+                    Organized by
+                    <span className="text-blue-600">
+                      {" "}
+                      {capitalizeWords(attendee.user.first_name)}{" "}
+                      {capitalizeWords(attendee.user.last_name)}
+                    </span>
                   </Typography>
 
                   {/* Time & Date */}

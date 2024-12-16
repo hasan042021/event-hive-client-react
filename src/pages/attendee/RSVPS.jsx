@@ -50,7 +50,7 @@ const RSVPs = () => {
                 className="w-full max-w-[40rem] m-2 mx-2 shadow-lg rounded-lg"
               >
                 <List>
-                  <ListItem className="border flex flex-col md:flex-row items-center justify-between transition-all">
+                  <ListItem className="border flex flex-col md:flex-row  md:items-center justify-between transition-all">
                     <ListItemPrefix>
                       <Avatar
                         size="xl"
@@ -61,7 +61,7 @@ const RSVPs = () => {
                     </ListItemPrefix>
                     <div className="md:flex-grow flex-grow-0 mx-0 md:mx-4">
                       <Typography
-                        className="font-bold text-cyan-800"
+                        className="font-bold md:text-start text-center text-cyan-800"
                         variant="h6"
                         color="gray-600"
                       >
