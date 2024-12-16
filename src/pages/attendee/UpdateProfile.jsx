@@ -119,7 +119,7 @@ export default function UpdateProfile() {
           <UpdateProfileSkeleton />
         </>
       ) : (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-2 py-2 md:px-4 md:py-4">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto">
             <div className="md:flex">
               <div className="md:w-1/2 p-8 bg-gradient-to-br from-blue-500 to-purple-600">

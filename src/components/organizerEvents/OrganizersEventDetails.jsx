@@ -35,8 +35,8 @@ export default function OrganizersEventDetails({ event }) {
   };
 
   return (
-    <div className="container md:w-5/6">
-      <Card className=" container max-w-4xl mx-auto my-4 overflow-hidden">
+    <div className=" md:w-4/6 p-2">
+      <Card className=" container  max-w-4xl my-4 overflow-hidden">
         <CardBody className="p-0">
           <div className="flex flex-col md:flex-row">
             {/* Thumbnail */}

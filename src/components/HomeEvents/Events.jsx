@@ -11,10 +11,10 @@ export default function Events({ events }) {
   return (
     <>
       {events?.length == 0 ? (
-        <div className="h-[100vh] flex-wrap flex items-center justify-center">
+        <Card className="h-[90vh] p-2 my-1 md:mx-0 mx-1 shadow-none flex items-center justify-center">
           <img src={notFoundImg} className="w-80" alt="" />
           <Typography variant="h6">No Data Found</Typography>
-        </div>
+        </Card>
       ) : (
         events?.map((event) => <EventDetails event={event} />)
       )}

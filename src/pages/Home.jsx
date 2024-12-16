@@ -106,7 +106,7 @@ export default function Home() {
           </Drawer>
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-1 p-2 mx-auto">
           {filteredLoading || eventsLoading ? (
             <EventsSkeleton /> // Display skeleton while events are loading
           ) : isFilterSuccess ? (

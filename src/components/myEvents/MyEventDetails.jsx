@@ -2,6 +2,7 @@ import {
   Avatar,
   Button,
   Card,
+  CardBody,
   List,
   ListItem,
   ListItemPrefix,
@@ -27,55 +28,68 @@ export default function MyEventDetails({ event }) {
   console.log(event);
 
   return (
-    <Card className="w-full rounded my-2 shadow-xl">
-  <List className="flex flex-col  sm:flex-row items-center md:items-start justify-center space-y-4 sm:space-y-0">
-    <div className=" h-28 border-2 rounded overflow-hidden">
-      <img
-        className="flex items-center justify-center w-full rounded border-2 h-full"
-        src={myevent?.thumbnail}
-        variant="square"
-        alt="event_image"
-      />
+    <div className=" md:w-4/6 ">
+      <Card className=" container  max-w-4xl my-2 overflow-hidden">
+        <CardBody className="p-0">
+          <div className="flex flex-col md:flex-row">
+            {/* Thumbnail Section */}
+
+            <div className="md:w-1/3 h-48 md:h-auto overflow-hidden">
+              <img
+                src={myevent?.thumbnail}
+                alt="event_image"
+                className="inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="md:w-2/3 p-6 flex flex-col justify-between">
+              <div className="flex flex-col items-start w-full">
+                {/* Event Name */}
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  {capitalizeWords(myevent.name)}
+                </Typography>
+
+                {/* Organizer, Time, and Date */}
+
+                <div className="flex flex-col items-start justify-start space-y-2  ">
+                  {/* Organizer */}
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
+                  >
+                    <UserIcon className="h-5 w-5 inline-block mr-1 text-blue-600" />
+                    Organized by {capitalizeWords(attendee.user.first_name)}{" "}
+                    {capitalizeWords(attendee.user.last_name)}
+                  </Typography>
+
+                  {/* Time & Date */}
+                  <Typography
+                    className="flex flex-col md:flex-row justify-between  items-start gap-2 mx-0 mr-2"
+                    variant="small"
+                  >
+                    <div className="font-extralight  flex md:border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
+                      <ClockIcon className="h-5 w-5 inline-block mr-2 border-none md:text-cyan-700" />
+                      {convertTo12HourFormat(myevent.time)}
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <CalendarDateRangeIcon className="h-5 w-5 inline-block mr-2 text-green-600" />
+                      {formatDate(myevent.date)}
+                    </div>
+                  </Typography>
+                  <div className="flex items-center mt-2">
+                    <MapPinIcon className="h-5 w-5 text-blue-600 mr-2" />
+                    {myevent.location}
+                  </div>
+                </div>
+
+                {/* Location */}
+              </div>
+            </div>
+
+            {/* Event Details Section */}
+          </div>
+        </CardBody>
+      </Card>
     </div>
-
-    <ListItem className="flex flex-col items-start w-full">
-      <div>
-        <Typography
-          className="font-sans italic text-cyan-800"
-          variant="h5"
-          color="gray-600"
-        >
-          {capitalizeWords(myevent.name)}
-        </Typography>
-      </div>
-      <div className="flex flex-col sm:flex-row w-full sm:items-center space-y-2 sm:space-y-0">
-        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-          <Typography
-            variant="small"
-            color="gray"
-            className="italic font-normal border-r-2 pr-2 border-none md:border-gray-700"
-          >
-            <UserIcon className="size-4 inline-block mr-1 text-blue-600" /> Organized by {capitalizeWords(attendee.user.first_name)} {capitalizeWords(attendee.user.last_name)}
-          </Typography>
-          <Typography className="flex flex-col md:flex-row items-start gap-2 mx-0 md:mx-2" variant="small">
-            <span className="font-extralight flex md:border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
-              <ClockIcon className="size-4 inline-block mr-2 border-none md:text-cyan-700" />
-              {convertTo12HourFormat(myevent.time)}
-            </span>
-            <span className="flex items-center justify-center">
-              <CalendarDateRangeIcon className="size-4 inline-block mr-2 text-green-600" />
-              {formatDate(myevent.date)}
-            </span>
-          </Typography>
-        </div>
-      </div>
-      <div className="flex items-center mt-2">
-        <MapPinIcon className="size-4 text-blue-600 mr-2" />
-        {myevent.location}
-      </div>
-    </ListItem>
-  </List>
-</Card>
-
   );
 }

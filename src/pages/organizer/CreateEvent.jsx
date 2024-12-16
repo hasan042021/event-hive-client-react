@@ -18,6 +18,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export default function CreateEvent() {
   const [now, setNow] = useState(false);
@@ -88,11 +89,12 @@ export default function CreateEvent() {
 
     createEvent(formData);
   };
+  console.log(thumbnail);
 
   return (
     <Layout>
-      <div className="flex my-3 w-full justify-center">
-        <Card className="max-w-4xl">
+      <div className="flex my-3 p-1 w-full justify-center">
+        <Card className="md:w-4/6  max-w-4xl">
           <CardBody>
             <form onSubmit={handleSubmit} className="space-y-6">
               <Typography variant="h4" color="blue-gray" className="mb-6">
@@ -137,15 +139,7 @@ export default function CreateEvent() {
                 />
 
                 <div className="relative">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-2 font-medium"
-                  >
-                    Thumbnail
-                  </Typography>
-                  <Input
-                    variant="outlined"
+                  <input
                     label="Thumbnail"
                     placeholder="Choose file"
                     onChange={(e) => setThumbnail(e.target.files[0])}
@@ -153,6 +147,15 @@ export default function CreateEvent() {
                     className="hidden"
                     id="thumbnail-upload"
                   />
+                  {thumbnail?.name && (
+                    <span className="border-2 rounded px-2 py-1 mb-2 inline-flex items-center justify-center">
+                      Selected File: {thumbnail?.name}{" "}
+                      <XCircleIcon
+                        className="h-5 cursor-pointer text-red-500"
+                        onClick={() => setThumbnail(null)}
+                      />
+                    </span>
+                  )}
                   <label
                     htmlFor="thumbnail-upload"
                     className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -177,7 +180,7 @@ export default function CreateEvent() {
 
                 <Textarea
                   variant="outlined"
-                  label="Description"
+                  label="Enter event description"
                   placeholder="Enter event description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}

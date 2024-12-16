@@ -118,11 +118,11 @@ export default function UpdateEvent() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="md:flex">
-            <div className="md:w-1/3 p-8 bg-gradient-to-br from-blue-500 to-purple-600">
+            <div className="md:w-1/3 p-6 bg-gradient-to-br from-blue-500 to-purple-600">
               <Typography variant="h4" color="white" className="mb-6">
                 Event Details
               </Typography>
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
+              <Card className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-2">
                 {!profilePicture && (
                   <img
                     className="h-40 w-full object-cover rounded-lg mb-2"
@@ -130,7 +130,10 @@ export default function UpdateEvent() {
                     alt="Event thumbnail"
                   />
                 )}
-                <form onSubmit={handleThumbnailUpload} className="space-y-4">
+                <form
+                  onSubmit={handleThumbnailUpload}
+                  className="space-y-4 mb-0 pb-0"
+                >
                   <ImageUpload
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}

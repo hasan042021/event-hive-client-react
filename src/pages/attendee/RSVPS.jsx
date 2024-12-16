@@ -28,7 +28,7 @@ const RSVPs = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mx-2 ">
         {data.length === 0 ? (
           <div className="h-[100vh] flex-col  flex items-center justify-center">
             <img src={notFoundImg} className="w-80" alt="" />
@@ -38,24 +38,25 @@ const RSVPs = () => {
           <>
             <Card
               style={{ backgroundColor: "rgb(11,161,233)" }}
-              className="p-2  text-white rounded mt-2 "
+              className="p-1 px-3  mx-2 text-white rounded-2xl mt-2 "
             >
-              <Typography variant="h6">
+              <Typography variant="p" className="font-semibold">
                 RSVP Requests You Have Not Acted On Yet
               </Typography>
             </Card>
             {data?.map((event) => (
               <Card
                 key={event.id}
-                className="w-full max-w-[48rem] m-2 shadow-lg rounded-lg"
+                className="w-full max-w-[40rem] m-2 mx-2 shadow-lg rounded-lg"
               >
                 <List>
-                  <ListItem className="border flex flex-col md:flex-row items-center justify-between">
+                  <ListItem className="border flex flex-col md:flex-row items-center justify-between transition-all">
                     <ListItemPrefix>
                       <Avatar
                         size="xl"
                         variant="rounded"
                         src={event.thumbnail_url}
+                        className="border-2 border-blue-500 shadow-md"
                       />
                     </ListItemPrefix>
                     <div className="md:flex-grow flex-grow-0 mx-0 md:mx-4">

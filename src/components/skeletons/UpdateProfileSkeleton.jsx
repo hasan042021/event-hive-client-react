@@ -4,14 +4,18 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 export default function UpdateProfileSkeleton() {
   return (
-    <div className="my-2 mx-auto w-10/12">
-      <div className="bg-white w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="md:px-4 px-2 py-2 md:py-4 container mx-auto  ">
+      <div className="bg-white w-full grid grid-cols-1 md:grid-cols-4 gap-4 rounded-2xl">
         {/* Profile image and user info skeleton */}
         <div className="md:col-span-2 col-span-4">
           <div className="flex my-4 flex-col justify-center items-center">
             <div>
               {/* Circular skeleton for profile image */}
-              <Skeleton circle={true} height={280} width={280} />
+              <Skeleton
+                circle={true}
+                height={window.innerWidth >= 750 ? 235 : 160}
+                width={window.innerWidth >= 750 ? 235 : 160}
+              />
             </div>
             <div className="w-full flex flex-col items-center mt-4">
               {/* Name skeleton */}
@@ -44,8 +48,8 @@ export default function UpdateProfileSkeleton() {
             <Skeleton height={40} />
 
             {/* Checkbox skeletons */}
-            <Skeleton height={20} width={150} />
-            <Skeleton height={20} width={150} />
+            <Skeleton height={20} width="100%" />
+            <Skeleton height={20} width="100%" />
 
             {/* Button skeleton */}
             <Skeleton height={40} width="100%" />
