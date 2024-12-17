@@ -97,7 +97,7 @@ export default function SingleEvent() {
             <CardHeader
               shadow={false}
               floated={false}
-              className="relative m-0 w-full min-h-[50vh] max-h-[60vh] shrink-0 rounded-t rounded-r-none rounded-t-none rounded-l-none overflow-hidden"
+              className="relative m-0 w-full max-h-[60vh] shrink-0 rounded-t rounded-r-none rounded-t-none rounded-l-none overflow-hidden"
             >
               {/* Image */}
               <img
