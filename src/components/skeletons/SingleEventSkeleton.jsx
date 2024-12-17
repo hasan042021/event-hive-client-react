@@ -10,57 +10,75 @@ import {
 
 export default function SingleEventSkeleton() {
   return (
-    <div className="flex flex-col items-center justify-center px-4 md:px-8">
-  {/* Main Card Skeleton */}
-  <Card className="w-full max-w-[48rem] flex flex-col md:flex-row m-2">
-    <CardHeader
-      shadow={false}
-      floated={false}
-      className="m-0 w-full md:w-2/5 shrink-0 rounded-t md:rounded-tr-none md:rounded-l"
-    >
-      {/* Skeleton for the image */}
-      <Skeleton className="h-40 md:h-full w-full object-cover" width="100%" />
-    </CardHeader>
-    <CardBody className="p-4 md:p-6">
-      {/* Skeleton for the organizer name */}
-      <Typography variant="h6" className="mb-4 uppercase">
-        <Skeleton width="50%" />
-      </Typography>
-      {/* Skeleton for the event name */}
-      <Typography variant="h4" className="mb-2">
-        <Skeleton width="70%" />
-      </Typography>
-      {/* Skeleton for the category */}
-      <Typography className="font-normal mb-4">
-        <Skeleton width="30%" />
-      </Typography>
-      {/* Skeleton for the description */}
-      <Typography className="mb-8 font-normal">
-        <Skeleton count={3} />
-      </Typography>
-      {/* Skeleton for the tags */}
-      <div className="flex flex-wrap gap-2">
-        <Skeleton width={80} height={30} />
-        <Skeleton width={80} height={30} />
-        <Skeleton width={80} height={30} />
-      </div>
-      {/* Skeleton for the button */}
-      <div className="mt-4">
-        <Skeleton width={100} height={40} />
-      </div>
-    </CardBody>
-  </Card>
+    <div className="flex flex-col items-center justify-start">
+      <div className="w-full max-w-[40rem] flex flex-col m-2 border-2 bg-opacity-70 backdrop-blur-md bg-white/50 shadow-lg rounded-lg overflow-hidden">
+        {/* Image Skeleton */}
+        <div className="relative w-full max-h-[60vh] h-[240px] bg-gray-200">
+          <Skeleton height="100%" width="100%" />
+          <div className="absolute bottom-4 left-4">
+            <Skeleton width={80} height={20} className="rounded-full" />
+          </div>
+        </div>
 
-  {/* Secondary Card Skeleton */}
-  <Card className="w-full text-start flex flex-col p-3 max-w-[48rem] mt-2">
-    <div className="mb-4">
-      <Skeleton className="w-1/4" height={50} />
-    </div>
-    <div>
-      <Skeleton className="w-full" height={150} />
-    </div>
-  </Card>
-</div>
+        <div className="p-4 md:p-8 flex-1">
+          {/* Title Skeleton */}
+          <div className="mb-3">
+            <Skeleton width="70%" height={24} />
+            <Skeleton width="50%" height={16} className="mt-2" />
+          </div>
 
+          {/* Time and Date Skeleton */}
+          <div className="flex flex-row my-4 gap-5 md:gap-10 items-start">
+            <div className="flex flex-col gap-2 items-start">
+              <Skeleton width={60} height={16} />
+              <Skeleton width={100} height={16} />
+            </div>
+            <div className="flex flex-col gap-2 items-start">
+              <Skeleton width={60} height={16} />
+              <Skeleton width={100} height={16} />
+            </div>
+          </div>
+
+          {/* Tags Skeleton */}
+          <div className="flex flex-wrap my-4 items-center gap-2">
+            {[...Array(3)].map((_, index) => (
+              <Skeleton
+                key={index}
+                width={60}
+                height={20}
+                className="rounded-full"
+              />
+            ))}
+          </div>
+
+          {/* Description Skeleton */}
+          <div className="my-4">
+            <Skeleton width="30%" height={16} />
+            <Skeleton count={2} height={16} className="mt-2" />
+          </div>
+
+          {/* Creator Skeleton */}
+          <div className="my-4">
+            <Skeleton width="20%" height={16} />
+            <div className="flex items-center gap-2">
+              <Skeleton circle width={24} height={24} />
+              <Skeleton width="50%" height={16} />
+            </div>
+          </div>
+
+          {/* Attendees Skeleton */}
+          <div className="flex items-center my-4">
+            <Skeleton circle width={32} height={32} />
+            <Skeleton width="30%" height={16} className="ml-4" />
+          </div>
+
+          {/* Action Buttons Skeleton */}
+          <div className="flex items-center justify-center gap-6 my-6">
+            <Skeleton width={100} height={40} className="rounded-full" />
+            <Skeleton width={100} height={40} className="rounded-full" />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

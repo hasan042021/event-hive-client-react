@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
       </header>
 
       {/* Main content area, takes up available space */}
-      <main className="flex-grow m-auto w-full flex flex-col justify-center items-between ">
+      <main className="flex-grow m-auto w-full min-h-[70vh] flex flex-col justify-center items-between ">
         {children}
       </main>
 

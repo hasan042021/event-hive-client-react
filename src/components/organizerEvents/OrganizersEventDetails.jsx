@@ -53,7 +53,7 @@ export default function OrganizersEventDetails({ event }) {
               >
                 <Chip
                   value={`${attendee_count} Attendees`}
-                  className="absolute bottom-2 left-2 bg-white/80 backdrop-blur-sm"
+                  className="absolute bottom-2 left-2 text-blue-500 bg-white/80 backdrop-blur-sm"
                   icon={<UserIcon className="h-4 w-4" />}
                 ></Chip>
               </Link>

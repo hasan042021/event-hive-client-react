@@ -19,7 +19,7 @@ import {
   useGetRSVPsQuery,
 } from "../../features/RSVP/rsvpApi";
 import { useSelector } from "react-redux";
-import { findRSVP } from "../../utils/array_funcs";
+import { capitalizeWords, findRSVP } from "../../utils/array_funcs";
 import SingleEventSkeleton from "../../components/skeletons/SingleEventSkeleton";
 import {
   CalendarDateRangeIcon,
@@ -27,6 +27,9 @@ import {
   DocumentIcon,
   DocumentTextIcon,
   MapIcon,
+  TagIcon,
+  UserGroupIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
 import {
   convertTo12HourFormat,
@@ -55,7 +58,7 @@ export default function SingleEvent() {
         setFound(true);
         setStatus(
           foundRSVP.is_accepted
-            ? "You have accepted it already"
+            ? "You are going to attend this event"
             : "You have declined the invitation"
         );
       }
@@ -66,7 +69,7 @@ export default function SingleEvent() {
   const handleAccept = async () => {
     // Optimistically update the UI
     setFound(true);
-    setStatus("You have accepted it already");
+    setStatus("You are going to attend this event");
 
     const body = { id: event.id, data: { attendee_count: 1 } };
     await updateEvent(body).unwrap(); // use unwrap to handle the promise
@@ -89,75 +92,122 @@ export default function SingleEvent() {
       {isLoading ? (
         <SingleEventSkeleton />
       ) : (
-        <div className="flex flex-col items-center justify-start p-2 ">
-          <Card className="w-full max-w-[48rem] flex flex-col md:flex-row m-2 border-2 bg-opacity-70 backdrop-blur-md bg-white/50 shadow-lg hover:shadow-xl transition-shadow rounded-lg overflow-hidden">
+        <div className="flex flex-col items-center justify-start px-2">
+          <Card className="w-full rounded-2xl max-w-[40rem] flex flex-col m-2 border-2 bg-opacity-70 backdrop-blur-md bg-white/50 shadow-lg hover:shadow-xl transition-shadow  overflow-hidden">
             <CardHeader
               shadow={false}
               floated={false}
-              className="m-0 w-full md:w-2/5 shrink-0 rounded-t md:rounded-r-none md:rounded-t-none overflow-hidden"
+              className="relative m-0 w-full min-h-[50vh] max-h-[60vh] shrink-0 rounded-t rounded-r-none rounded-t-none rounded-l-none overflow-hidden"
             >
+              {/* Image */}
               <img
-                src={event?.thumbnail_url}
+                src={
+                  event?.thumbnail_url
+                    ? event?.thumbnail_url
+                    : "https://img.freepik.com/free-vector/image-upload-concept-landing-page_23-2148317961.jpg?t=st=1734426852~exp=1734430452~hmac=bfa99c8718fb7919abdcc0c187daf3f49aa57b57cbdf9c27390250bd18be018f&w=900"
+                }
                 alt="card-image"
                 className="h-full w-full object-cover"
               />
-            </CardHeader>
-            <CardBody className="text-start p-6 flex-1">
-              <Typography
-                variant="h4"
-                color="blue-gray"
-                className="mb-4 capitalize text-center md:text-left font-bold text-blue-800"
-              >
-                {event?.name}
-              </Typography>
-              <Typography
-                variant="h6"
-                color="gray"
-                className="mb-4 capitalize text-center md:text-left text-blue-gray-600"
-              >
-                Organized by {event?.organizer.user.first_name}{" "}
-                {event?.organizer.user.last_name}
-              </Typography>
-              <div className="flex flex-col md:flex-row md:gap-6 items-center md:items-start mb-4">
+
+              {/* Overlay */}
+              <div className="absolute bottom-4 left-4">
                 <Typography
-                  className="flex gap-2 items-center mb-2 md:mb-0 text-blue-gray-700"
-                  variant="h6"
+                  variant="lead"
+                  className="text-gray-600 bg-cyan-100 p-2 rounded-full text-xs whitespace-nowrap"
                 >
-                  <span className="flex items-center gap-2">
-                    <ClockIcon className="h-5 text-cyan-700" />
-                    {convertTo12HourFormat(event?.time)}
-                  </span>
-                </Typography>
-                <Typography
-                  className="flex gap-2 items-center text-blue-gray-700"
-                  variant="h6"
-                >
-                  <span className="flex items-center gap-2">
-                    <CalendarDateRangeIcon className="h-5 text-green-600" />
-                    {formatDate(event?.CurRsvpdate)}
+                  <span className="font-semibold text-cyan-700">
+                    {event?.category?.name}
                   </span>
                 </Typography>
               </div>
-              <Typography
-                className="flex items-center gap-2 mt-2 text-blue-gray-700"
-                variant="h6"
-              >
-                <MapIcon className="h-5 text-blue-600" /> {event?.location}
-              </Typography>
-              <Typography color="gray" className="font-normal my-2">
-                <span className="bg-teal-600 rounded-full px-2 p-1 text-white ">
-                  {event?.category?.name}
-                </span>
-              </Typography>
-              <Typography className="flex flex-wrap gap-2">
-                {event?.tags?.map((tag) => (
-                  <Chip
-                    key={tag.id}
-                    className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full px-3 py-1 shadow-sm"
-                    value={tag?.name}
-                  />
+            </CardHeader>
+            <CardBody className="text-start p-4 md:p-8 flex-1">
+              <div className="mb-3">
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  className="mb-0 pb-0 capitalize  font-bold text-black"
+                >
+                  {event?.name}
+                </Typography>
+                <Typography
+                  className="flex items-center gap-2  text-gray-700"
+                  variant="p"
+                >
+                  {event?.location}
+                </Typography>
+              </div>
+              <div className="flex flex-row my-4 gap-5  md:gap-10 items-start ">
+                <div className="flex flex-col  gap-2 items-start mb-2 md:mb-0 ">
+                  <Typography variant="h6" className="mb-0 pb-0 text-black">
+                    Time
+                  </Typography>
+                  <div className="flex flex-row items-center justify-start gap-2 text-gray-700">
+                    <ClockIcon className="text-gray-700 h-4" />
+
+                    <small>{convertTo12HourFormat(event?.time)}</small>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 items-start ">
+                  <Typography variant="h6" className="text-black">
+                    Date
+                  </Typography>
+                  <div className="flex items-center gap-2 text-green-600">
+                    <CalendarDateRangeIcon className="h-4 " />
+                    <small>{formatDate(event?.CurRsvpdate)}</small>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap my-4 items-center gap-2">
+                <TagIcon className="h-4 w-4 text-blue-600" />
+                {event?.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-medium transition-all duration-200 hover:bg-blue-200"
+                  >
+                    {capitalizeWords(tag?.name)}
+                  </span>
                 ))}
-              </Typography>
+              </div>
+              <div className="my-4">
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  className="font-semibold flex items-center gap-1"
+                >
+                  <DocumentTextIcon className="h-4 text-blue-700" /> Description
+                </Typography>
+
+                <Typography variant="p" className="font-normal text-start">
+                  {event?.description}
+                </Typography>
+              </div>
+
+              <div>
+                <Typography className="text-black" variant="h6">
+                  Creator
+                </Typography>
+                <div
+                  color="gray"
+                  className="mb-4 capitalize flex items-center justify-start gap-1 text-center md:text-left text-blue-gray-600"
+                >
+                  <UserIcon className="h-4 text-gray-700" />
+                  <Typography variant="p" className="text-gray-700">
+                    {event?.organizer.user.first_name}{" "}
+                    {event?.organizer.user.last_name}
+                  </Typography>
+                </div>
+              </div>
+              <div>
+                <small className="flex items-center text-gray-700 ">
+                  <span className="bg-blue-200  text-white p-2 py-1 mr-2 rounded-full">
+                    +{event?.attendee_count}
+                  </span>
+                  {"  "} persons are going.
+                </small>
+              </div>
               <div className="my-6">
                 {!found ? (
                   <div className="flex items-center justify-center gap-6">
@@ -201,25 +251,15 @@ export default function SingleEvent() {
                     </Typography>
                   </div>
                 ) : (
-                  <div className="bg-deep-orange-100 p-3 rounded text-black italic font-sans text-center">
+                  <Typography
+                    variant="p"
+                    className=" p-1 rounded italic font-sans "
+                  >
                     {status}
-                  </div>
+                  </Typography>
                 )}
               </div>
             </CardBody>
-          </Card>
-          <Card className="border-2 w-full max-w-[48rem] p-6 m-2 shadow-lg hover:shadow-xl bg-opacity-70 backdrop-blur-md bg-white/50 rounded-lg">
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="font-semibold flex items-center gap-2"
-            >
-              <DocumentTextIcon className="h-6 text-blue-700" /> Description
-            </Typography>
-            <div className="h-0.5 w-28 bg-teal-800 my-2"></div>
-            <Typography color="gray" className="font-normal text-start">
-              {event?.description}
-            </Typography>
           </Card>
         </div>
       )}

@@ -44,7 +44,7 @@ export default function MyEventDetails({ event }) {
             <div className="md:w-2/3 p-4 pt-2 md:pt-6 md:p-6 flex flex-col justify-between">
               <div className="flex flex-col items-start w-full">
                 {/* Event Name */}
-                <Typography variant="h4" color="blue-gray" className="mb-2">
+                <Typography variant="h6" color="blue-gray" className="mb-2">
                   {capitalizeWords(myevent.name)}
                 </Typography>
 
@@ -57,7 +57,7 @@ export default function MyEventDetails({ event }) {
                     color="gray"
                     className="italic font-normal text-start border-r-2 pr-2 border-none md:border-gray-700 "
                   >
-                    <UserIcon className="h-5 w-5 inline-block mr-1 " />
+                    <UserIcon className="h-4 w-4 inline-block mr-1" />
                     Organized by
                     <span className="text-blue-600">
                       {" "}
@@ -72,18 +72,21 @@ export default function MyEventDetails({ event }) {
                     variant="small"
                   >
                     <div className="font-extralight  flex md:border-r-2 pr-2 border-none md:border-gray-800 items-center justify-center">
-                      <ClockIcon className="h-5 w-5 inline-block mr-2 border-none md:text-cyan-700" />
-                      {convertTo12HourFormat(myevent.time)}
+                      <ClockIcon className="h-4 w-4 inline-block mr-2 border-none md:text-cyan-700" />
+                      <small>{convertTo12HourFormat(myevent.time)}</small>
                     </div>
                     <div className="flex items-center justify-center">
-                      <CalendarDateRangeIcon className="h-5 w-5 inline-block mr-2 text-green-600" />
-                      {formatDate(myevent.date)}
+                      <CalendarDateRangeIcon className="h-4 w-4 inline-block mr-2 text-green-600" />
+                      <small>{formatDate(myevent.date)}</small>
                     </div>
                   </Typography>
-                  <div className="flex items-center mt-2">
-                    <MapPinIcon className="h-5 w-5 text-blue-600 mr-2" />
+                  <Typography
+                    variant="small"
+                    className="flex items-center mt-2"
+                  >
+                    <MapPinIcon className="h-4 w-4 text-blue-600 mr-2" />
                     {myevent.location}
-                  </div>
+                  </Typography>
                 </div>
 
                 {/* Location */}

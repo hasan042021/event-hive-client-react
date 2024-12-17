@@ -49,14 +49,12 @@ const RSVPs = () => {
                 key={event.id}
                 className="w-full max-w-[40rem] m-2 mx-2 shadow-lg rounded-lg"
               >
-                <List>
+                <List className="p-0">
                   <ListItem className="border flex flex-col md:flex-row  md:items-center justify-between transition-all">
-                    <ListItemPrefix>
-                      <Avatar
-                        size="xl"
-                        variant="rounded"
+                    <ListItemPrefix className="p-0">
+                      <img
                         src={event.thumbnail_url}
-                        className="border-2 border-blue-500 shadow-md"
+                        className="border-2 max-w-20 rounded p-0 border-blue-500 shadow-md"
                       />
                     </ListItemPrefix>
                     <div className="md:flex-grow flex-grow-0 mx-0 md:mx-4">
@@ -76,7 +74,7 @@ const RSVPs = () => {
                         {event.organizer.user.last_name}
                       </Typography>
                     </div>
-                    <div className="flex flex-col items-start md:items-end mx-0 md:mx-2">
+                    <div className="flex flex-col items-center md:items-end mx-0 md:mx-2">
                       <Typography className="mx-0" variant="small" color="gray">
                         {convertTo12HourFormat(event.time)}
                       </Typography>
