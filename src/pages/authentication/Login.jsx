@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { userInfoSet } from "../../features/auth/authSlice";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import ScaleLoader from "react-spinners/ScaleLoader";
-
+import loginImage from "../../assets/images/authentication.jpg";
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -48,95 +48,116 @@ export default function Login() {
   };
 
   return (
-    <div className="flex my-2 flex-col justify-center w-full items-center h-screen bg-gray-100 relative">
-      <div className="w-80 max-w-md p-5 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex flex-col">
-            <label htmlFor="username" className="text-gray-700 text-start">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-gray-700 text-start">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+    <div className="flex my-2 justify-center w-full items-center h-screen bg-gray-100 relative">
+      <div className="flex w-full max-w-4xl bg-white rounded-lg shadow-md">
+        {/* Left side with image */}
+        <div className="hidden md:block w-1/2">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Login"
+            className="object-cover w-full h-full rounded-l-lg"
+          />
+        </div>
 
-          <button
-            type="submit"
-            className="font-sans w-full flex justify-center gap-2 items-center bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600"
-          >
-            {isLoading ? (
-              <>
-                <span className="font-sans">Logging In</span>{" "}
-                <ScaleLoader color="white" />
-              </>
-            ) : (
-              "Login"
-            )}
-          </button>
-          {myError && (
-            <div
-              className={`absolute border-red-800 border-l-8 top-0 right-2 bg-white text-red-800 p-2 ps-3 shadow flex gap-2 items-center cursor-pointer transform transition-all duration-300 ease-in-out 
-    ${myError ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 mx-2 text-red"
+        {/* Right side with login form */}
+        <div className="w-full md:w-1/2 p-8">
+          <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex flex-col">
+              <label
+                htmlFor="username"
+                className="text-gray-700 text-start mb-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-                />
-              </svg>
-
-              <p>{myError}</p>
-
-              {/* cross button */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-5 mx-2 cursor-pointer"
-                onClick={() => setMyError("")}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </div>
-          )}
+            <div className="flex flex-col">
+              <label
+                htmlFor="password"
+                className="text-gray-700 text-start mb-2"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          <p>
-            Don't have an Account? <Link to="/register">Sign Up</Link>
-          </p>
-        </form>
+            <button
+              type="submit"
+              className="font-sans w-full flex justify-center gap-2 items-center bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600"
+            >
+              {isLoading ? (
+                <>
+                  <span className="font-sans">Logging In</span>{" "}
+                  <ScaleLoader color="white" />
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
+            {myError && (
+              <div
+                className={`absolute border-red-800 border-l-8 top-0 right-2 bg-white text-red-800 p-2 ps-3 shadow flex gap-2 items-center cursor-pointer transform transition-all duration-300 ease-in-out 
+    ${myError ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 mx-2 text-red"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                  />
+                </svg>
+
+                <p>{myError}</p>
+
+                {/* cross button */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-5 mx-2 cursor-pointer"
+                  onClick={() => setMyError("")}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
+            )}
+
+            <p className="text-gray-700">
+              Don't have an Account?{" "}
+              <Link to="/register" className="text-blue-500 hover:underline">
+                Sign Up
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

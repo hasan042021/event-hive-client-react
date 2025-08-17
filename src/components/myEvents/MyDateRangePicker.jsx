@@ -55,7 +55,7 @@ const MyDateRangePicker = ({ onDateRangeChange }) => {
           className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg focus:outline-none"
           onClick={() => setShowCalendar(!showCalendar)}
         >
-          <CalendarDaysIcon className="h-6 w-6" />
+          <CalendarDaysIcon classNamethe="h-6 w-6" />
         </button>
 
         {/* DatePicker: Displays inline when clicking the calendar button */}

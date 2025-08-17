@@ -63,16 +63,7 @@ function NavList({ user, handleLogout, isScrolled }) {
           Events
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color={isScrolled ? "blue-gray" : "white"}
-        className="p-1 font-medium"
-      >
-        <Link className="" to="/about">
-          About Us
-        </Link>
-      </Typography>
+      
       {!user ? (
         <>
           <Typography
