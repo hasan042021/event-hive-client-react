@@ -39,8 +39,9 @@ function App() {
       />
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/about" element={<AboutUs />} /> */}
+          <Route path="/" element={<AboutUs />} />
+      <Route path="/events" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/attendee/*" element={<AttendeeOutlet />}>

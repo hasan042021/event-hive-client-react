@@ -19,7 +19,7 @@ import Logo from "../../assets/images/logo.png";
 import avatarImg from "../../assets/images/avatar.png";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 
-function NavList({ user, handleLogout }) {
+function NavList({ user, handleLogout, isScrolled }) {
   const { data: events, isLoading: loadingEvents } = useGetEventsQuery(null, {
     skip: user?.role == "organizer" || !user,
   });
@@ -43,16 +43,36 @@ function NavList({ user, handleLogout }) {
   console.log(availableEvents);
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row  items-center lg:gap-6">
-      {/* <Typography
+      <Typography
         as="li"
         variant="small"
-        color="blue-gray"
+        color={isScrolled ? "blue-gray" : "white"}
+        className="p-1 font-medium"
+      >
+        <Link className="" to="/">
+          Home
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color={isScrolled ? "blue-gray" : "white"}
+        className="p-1 font-medium"
+      >
+        <Link className="" to="/events">
+          Events
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color={isScrolled ? "blue-gray" : "white"}
         className="p-1 font-medium"
       >
         <Link className="" to="/about">
           About Us
         </Link>
-      </Typography> */}
+      </Typography>
       {!user ? (
         <>
           <Typography
@@ -65,7 +85,7 @@ function NavList({ user, handleLogout }) {
               variant="text"
               size="sm"
               color="gray"
-              className="bg-white border-none text-gray-800 hover:bg-gray-100 border border-gray-300 shadow-lg"
+              className={`${isScrolled ? "bg-white border-gray-300 text-gray-800 hover:bg-gray-100 border" : "bg-white text-gray-800 hover:bg-gray-100 border-none"} shadow-lg`}
             >
               <Link className="" to="/login">
                 Login
@@ -92,11 +112,11 @@ function NavList({ user, handleLogout }) {
           </Typography>
         </>
       ) : user?.role == "attendee" ? (
-        <>
+        <> 
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
+            color={isScrolled ? "blue-gray" : "white"}
             className="p-1 font-medium"
           >
             <Link to={`/attendee/myevents/`} className="flex items-center ">
@@ -112,9 +132,9 @@ function NavList({ user, handleLogout }) {
           >
             <Link
               to={`/${user.role}/profile/`}
-              className="flex items-center text-blue-600 hover:text-blue-600"
+              className={`flex items-center ${isScrolled ? "text-blue-600" : "text-white"} hover:text-blue-600`}
             >
-              <UserCircleIcon className="text-blue-600 size-8 border-2 rounded-full " />
+              <UserCircleIcon className={`${isScrolled ? "text-blue-600" : "text-white"} size-8 border-2 rounded-full `} />
             </Link>
           </Typography>
           <Typography
@@ -125,8 +145,8 @@ function NavList({ user, handleLogout }) {
           >
             <Link to="/attendee/rsvps" state={{ data: availableEvents }}>
               <Badge color="blue" content={availableEvents?.length}>
-                <IconButton className="border shadow-xl" color="white">
-                  <ServerStackIcon className="h-5 w-5 fill-blue-600 bg-gray-50" />
+                <IconButton className="border shadow-xl" color={isScrolled ? "white" : "gray"}>
+                  <ServerStackIcon className={`h-5 w-5 ${isScrolled ? "fill-blue-600" : "fill-white"} bg-gray-50`} />
                 </IconButton>
               </Badge>
             </Link>
@@ -140,10 +160,10 @@ function NavList({ user, handleLogout }) {
             <Button
               variant="outlined"
               size="sm"
-              className="border-blue-500 font-normal p-1 px-2 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 flex items-center"
+              className={`border-blue-500 font-normal p-1 px-2 ${isScrolled ? "text-blue-500 hover:bg-blue-500 hover:text-white" : "text-white hover:bg-blue-500 hover:text-white"} transition-all duration-300 flex items-center`}
               onClick={handleLogout}
             >
-              <PowerIcon className="size-4 text-blue-500  hover:text-white" />
+              <PowerIcon className={`size-4 ${isScrolled ? "text-blue-500" : "text-white"}  hover:text-white`} />
               <span className="ml-1">Logout</span>
             </Button>
           </Typography>
@@ -153,7 +173,7 @@ function NavList({ user, handleLogout }) {
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
+            color={isScrolled ? "blue-gray" : "white"}
             className="p-1 font-medium"
           >
             <Link
@@ -166,7 +186,7 @@ function NavList({ user, handleLogout }) {
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
+            color={isScrolled ? "blue-gray" : "white"}
             className="p-1 font-medium"
           >
             <Link
@@ -185,9 +205,9 @@ function NavList({ user, handleLogout }) {
           >
             <Link
               to={`/${user.role}/profile/`}
-              className="flex items-center text-blue-600 hover:text-blue-600"
+              className={`flex items-center ${isScrolled ? "text-blue-600" : "text-white"} hover:text-blue-600`}
             >
-              <UserCircleIcon className="text-blue-600 size-8 border-2 rounded-full " />
+              <UserCircleIcon className={`${isScrolled ? "text-blue-600" : "text-white"} size-8 border-2 rounded-full `} />
             </Link>
           </Typography>
           <Typography
@@ -199,10 +219,10 @@ function NavList({ user, handleLogout }) {
             <Button
               variant="outlined"
               size="sm"
-              className="border-blue-500 font-normal p-1 px-2 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 flex items-center"
+              className={`border-blue-500 font-normal p-1 px-2 ${isScrolled ? "text-blue-500 hover:bg-blue-500 hover:text-white" : "text-white hover:bg-blue-500 hover:text-white"} transition-all duration-300 flex items-center`}
               onClick={handleLogout}
             >
-              <PowerIcon className="size-4 text-blue-500  hover:text-white" />
+              <PowerIcon className={`size-4 ${isScrolled ? "text-blue-500" : "text-white"}  hover:text-white`} />
               <span className="ml-1">Logout</span>
             </Button>
           </Typography>
@@ -214,6 +234,22 @@ function NavList({ user, handleLogout }) {
 
 export default function NavbarCustom() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 10) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
@@ -235,26 +271,26 @@ export default function NavbarCustom() {
     <>
       {" "}
       <Navbar
-        variant="gradient"
-        colorScheme="teal"
-        // color="light-blue"
-        // Choose a suitable color scheme
-        className="fixed top-0 z-50 mx-auto w-full max-w-full px-6  py-2"
+        className={`fixed top-0 z-50 mx-auto w-full max-w-full px-6 py-2 transition-all duration-300 ${
+          isScrolled ? "bg-white shadow-md" : "bg-transparent border-none shadow-none"
+        }`}
         fullWidth
       >
-        <div className="flex items-center justify-between text-white">
+        <div className={`flex items-center justify-between ${
+          isScrolled ? "text-gray-900" : "text-white"
+        }`}>
           <Typography
             as="a"
             href="#"
             variant="h4"
             className="mr-4 cursor-pointer py-1.5 italic"
           >
-            <Link to="/" className="text-blue-900  ">
+            <Link to="/" className={`${isScrolled ? "text-blue-900" : "text-white"}  `}>
               <img src={Logo} className="h-8" alt="" />
             </Link>
           </Typography>
           <div className="hidden lg:block">
-            <NavList user={user} handleLogout={handleLogout} />
+            <NavList user={user} handleLogout={handleLogout} isScrolled={isScrolled} />
           </div>
           <IconButton
             variant="text"
@@ -265,20 +301,19 @@ hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           >
             {openNav ? (
               <XMarkIcon
-                className="h-6 
-w-6 text-light-blue-500"
+                className={`h-6 w-6 ${isScrolled ? "text-light-blue-500" : "text-white"}`}
                 strokeWidth={2}
               />
             ) : (
               <Bars3Icon
-                className="h-6 w-6 text-light-blue-500"
+                className={`h-6 w-6 ${isScrolled ? "text-light-blue-500" : "text-white"}`}
                 strokeWidth={2}
               />
             )}
           </IconButton>
         </div>
         <Collapse open={openNav}>
-          <NavList user={user} handleLogout={handleLogout} />
+          <NavList user={user} handleLogout={handleLogout} isScrolled={isScrolled} />
         </Collapse>
       </Navbar>
       <div className="h-16"></div>
